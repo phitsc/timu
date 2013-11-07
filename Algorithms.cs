@@ -59,11 +59,25 @@ namespace TextManipulationUtility
                 return new String(c);
             }));
 
+            algorithms.Add(new Algorithm("Order", "Reverse words", input =>
+            {
+                var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                Array.Reverse(words);
+                return string.Join(" ", words);
+            }));
+
             algorithms.Add(new Algorithm("Order", "Scramble", input =>
             {
                 var c = input.ToCharArray();
                 var rnd = new Random();
                 return new String(c.OrderBy(x => rnd.Next()).ToArray());
+            }));
+
+            algorithms.Add(new Algorithm("Order", "Scramble words", input =>
+            {
+                var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                var rnd = new Random();
+                return string.Join(" ", words.OrderBy(x => rnd.Next()).ToArray());
             }));
 
             algorithms.Add(new Algorithm("Checksum", "MD5", input =>

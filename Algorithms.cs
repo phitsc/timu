@@ -11,6 +11,7 @@ namespace TextManipulationUtility
     class Algorithms
     {
         private TextInfo textInfo = System.Globalization.CultureInfo.CurrentCulture.TextInfo;
+        private Random rnd = new Random();
 
         public List<Algorithm> algorithms { get; private set; }
 
@@ -69,15 +70,31 @@ namespace TextManipulationUtility
             algorithms.Add(new Algorithm("Order", "Scramble", input =>
             {
                 var c = input.ToCharArray();
-                var rnd = new Random();
                 return new String(c.OrderBy(x => rnd.Next()).ToArray());
             }));
 
             algorithms.Add(new Algorithm("Order", "Scramble words", input =>
             {
                 var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                var rnd = new Random();
                 return string.Join(" ", words.OrderBy(x => rnd.Next()).ToArray());
+            }));
+
+            algorithms.Add(new Algorithm("Order", "Scramble within words", input =>
+            {
+                var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                for (var index = 0; index < words.Length; ++index)
+                {
+                    var word = words[index];
+
+                    if (word.Length > 2)
+                    {
+                        var chars = word.ToCharArray(1, word.Length - 2);
+                        words[index] = word[0] + new String(chars.OrderBy(x => rnd.Next()).ToArray()) + word[word.Length - 1];
+                    }
+                }
+
+                return string.Join(" ", words);
             }));
 
             algorithms.Add(new Algorithm("Checksum", "MD5", input =>

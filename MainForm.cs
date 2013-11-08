@@ -38,11 +38,25 @@
             updateOutput();
         }
 
+        private void paramTextBox_TextChanged(object sender, EventArgs e)
+        {
+            updateOutput();
+        }
+
         private void updateOutput()
         {
             if (selectedAlgorithm != null)
             {
-                outputTextBox.Text = selectedAlgorithm.Apply(inputTextBox.Text);
+                var result = selectedAlgorithm.Apply(inputTextBox.Text, paramTextBox.Text);
+
+                if (result.StartsWith(@"{\rtf"))
+                {
+                    outputTextBox.Rtf = result;
+                }
+                else
+                {
+                    outputTextBox.Text = result;
+                }
             }
         }
     }

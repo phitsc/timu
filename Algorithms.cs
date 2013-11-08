@@ -19,7 +19,7 @@ namespace TextManipulationUtility
         {
             algorithms = new List<Algorithm>();
 
-            algorithms.Add(new Algorithm("Count", "Chars, Words, Lines", input =>
+            algorithms.Add(new Algorithm("Count", "Chars, Words, Lines", (input, param) =>
             {
                 int characterCount = input.Count();
                 int wordCount = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).Length;
@@ -28,58 +28,58 @@ namespace TextManipulationUtility
                 return String.Format("{0} characters. {1} words. {2} lines.", characterCount, wordCount, lineCount);
             }));
 
-            algorithms.Add(new Algorithm("Count", "Alphabet", input =>
+            algorithms.Add(new Algorithm("Count", "Alphabet", (input, param) =>
             {
-                return countAlphabet(input, false);
+                return CountAlphabet(input, false);
             }));
 
-            algorithms.Add(new Algorithm("Count", "case-insensitive", input =>
+            algorithms.Add(new Algorithm("Count", "case-insensitive", (input, param) =>
             {
-                return countAlphabet(input, true);
+                return CountAlphabet(input, true);
             }));
 
-            algorithms.Add(new Algorithm("Capitalisation", "Upper", input =>
+            algorithms.Add(new Algorithm("Capitalisation", "Upper", (input, param) =>
             {
                 return textInfo.ToUpper(input);
             }));
 
-            algorithms.Add(new Algorithm("Capitalisation", "Lower", input =>
+            algorithms.Add(new Algorithm("Capitalisation", "Lower", (input, param) =>
             {
                 return textInfo.ToLower(input);
             }));
 
-            algorithms.Add(new Algorithm("Capitalisation", "Camel", input =>
+            algorithms.Add(new Algorithm("Capitalisation", "Camel", (input, param) =>
             {
                 return textInfo.ToTitleCase(input);
             }));
 
-            algorithms.Add(new Algorithm("Order", "Reverse", input =>
+            algorithms.Add(new Algorithm("Order", "Reverse", (input, param) =>
             {
                 var c = input.ToCharArray();
                 Array.Reverse(c);
                 return new String(c);
             }));
 
-            algorithms.Add(new Algorithm("Order", "Reverse words", input =>
+            algorithms.Add(new Algorithm("Order", "Reverse words", (input, param) =>
             {
                 var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 Array.Reverse(words);
                 return string.Join(" ", words);
             }));
 
-            algorithms.Add(new Algorithm("Order", "Scramble", input =>
+            algorithms.Add(new Algorithm("Order", "Scramble", (input, param) =>
             {
                 var c = input.ToCharArray();
                 return new String(c.OrderBy(x => rnd.Next()).ToArray());
             }));
 
-            algorithms.Add(new Algorithm("Order", "Scramble words", input =>
+            algorithms.Add(new Algorithm("Order", "Scramble words", (input, param) =>
             {
                 var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 return string.Join(" ", words.OrderBy(x => rnd.Next()).ToArray());
             }));
 
-            algorithms.Add(new Algorithm("Order", "Scramble within words", input =>
+            algorithms.Add(new Algorithm("Order", "Scramble within words", (input, param) =>
             {
                 var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -97,34 +97,34 @@ namespace TextManipulationUtility
                 return string.Join(" ", words);
             }));
 
-            algorithms.Add(new Algorithm("Checksum", "MD5", input =>
+            algorithms.Add(new Algorithm("Checksum", "MD5", (input, param) =>
             {
-                return md5(input);
+                return Md5(input);
             }));
 
-            algorithms.Add(new Algorithm("Checksum", "SHA-256", input =>
+            algorithms.Add(new Algorithm("Checksum", "SHA-256", (input, param) =>
             {
-                return sha256(input);
+                return Sha256(input);
             }));
 
-            algorithms.Add(new Algorithm("Checksum", "Checksum", input =>
+            algorithms.Add(new Algorithm("Checksum", "Checksum", (input, param) =>
             {
                 var sb = new StringBuilder();
 
-                sb.Append("MD5\t" + md5(input) + "\n");
-                sb.Append("SHA-256\t" + sha256(input) + "\n");
+                sb.Append("MD5\t" + Md5(input) + "\n");
+                sb.Append("SHA-256\t" + Sha256(input) + "\n");
 
                 return sb.ToString();
             }));
 
-            algorithms.Add(new Algorithm("Sort", "A-Z", input =>
+            algorithms.Add(new Algorithm("Sort", "A-Z", (input, param) =>
             {
                 var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 Array.Sort(words);
                 return string.Join(" ", words);
             }));
 
-            algorithms.Add(new Algorithm("Sort", "Z-A", input =>
+            algorithms.Add(new Algorithm("Sort", "Z-A", (input, param) =>
             {
                 var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 Array.Sort(words);
@@ -132,7 +132,63 @@ namespace TextManipulationUtility
                 return string.Join(" ", words);
             }));
 
-            algorithms.Add(new Algorithm("Web", "Source", input =>
+            algorithms.Add(new Algorithm("Search", "Simple", (input, param) =>
+            {
+                var finds = new List<int>();
+
+                int pos = input.IndexOf(param);
+                while ((pos != -1) && (pos < input.Length) && !(param.Length == 0))
+                {
+                    finds.Add(pos);
+
+                    pos = input.IndexOf(param, pos + 1);
+                }
+
+                var sb = new StringBuilder();
+                sb.Append("{\\rtf1 ");
+                sb.Append(@"{\colortbl;\red0\green0\blue0;\red255\green216\blue0;}");
+
+                int from = 0;
+                for (int index = 0; index < finds.Count; ++index)
+                {
+                    sb.Append(input.Substring(from, finds[index] - from));
+                    sb.AppendFormat("{{\\highlight2 {0}}}", input.Substring(finds[index], param.Length));
+
+                    from = finds[index] + param.Length;
+                }
+
+                sb.Append(input.Substring(from));
+
+                sb.Append("}");
+
+                return sb.ToString();
+            }));
+
+            algorithms.Add(new Algorithm("List", "Split", (input, param) =>
+            {
+                var elements = input.Split(param.ToCharArray());
+
+                return string.Join("\n", elements);
+            }));
+
+            algorithms.Add(new Algorithm("List", "Join", (input, param) =>
+            {
+                var elements = input.Split(new char[] { '\n' });
+
+                return string.Join(param, elements);
+            }));
+
+            algorithms.Add(new Algorithm("Encryption", "Encrypt", (input, param) =>
+            {
+                return StringCipher.Encrypt(input, param);
+            }));
+
+            algorithms.Add(new Algorithm("Encryption", "Decrypt", (input, param) =>
+            {
+                return StringCipher.Decrypt(input, param);
+            }));
+
+            algorithms.Add(new Algorithm("Web", "Source", (input, param) =>
             {
                 using (var webClient = new WebClient())
                 {
@@ -148,7 +204,7 @@ namespace TextManipulationUtility
             }));
         }
 
-        private string countAlphabet(string input, bool caseInsensitive)
+        private static string CountAlphabet(string input, bool caseInsensitive)
         {
             var dict = new SortedDictionary<char, int>();
 
@@ -172,7 +228,7 @@ namespace TextManipulationUtility
             return string.Join(" ", dict);
         }
 
-        private string formatHash(byte[] hash)
+        private static string FormatHash(byte[] hash)
         {
             var sb = new StringBuilder();
 
@@ -184,19 +240,19 @@ namespace TextManipulationUtility
             return sb.ToString();
         }
 
-        string md5(string input)
+        private static string Md5(string input)
         {
             using (var md5 = System.Security.Cryptography.MD5.Create())
             {
-                return formatHash(md5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(input)));
+                return FormatHash(md5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(input)));
             }
         }
 
-        string sha256(string input)
+        private static string Sha256(string input)
         {
             using (var hasher = new System.Security.Cryptography.SHA256Managed())
             {
-                return formatHash(hasher.ComputeHash(System.Text.Encoding.UTF8.GetBytes(input)));
+                return FormatHash(hasher.ComputeHash(System.Text.Encoding.UTF8.GetBytes(input)));
             }
         }
     }

@@ -31,7 +31,9 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.manipulationsTreeView = new System.Windows.Forms.TreeView();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.inputTextBox = new System.Windows.Forms.RichTextBox();
+            this.paramTextBox = new System.Windows.Forms.RichTextBox();
             this.outputTextBox = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -41,6 +43,10 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -79,7 +85,7 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.inputTextBox);
+            this.splitContainer2.Panel1.Controls.Add(this.splitContainer3);
             // 
             // splitContainer2.Panel2
             // 
@@ -88,15 +94,43 @@
             this.splitContainer2.SplitterDistance = 257;
             this.splitContainer2.TabIndex = 0;
             // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.inputTextBox);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.paramTextBox);
+            this.splitContainer3.Size = new System.Drawing.Size(661, 257);
+            this.splitContainer3.SplitterDistance = 218;
+            this.splitContainer3.TabIndex = 1;
+            // 
             // inputTextBox
             // 
             this.inputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.inputTextBox.Location = new System.Drawing.Point(0, 0);
             this.inputTextBox.Name = "inputTextBox";
-            this.inputTextBox.Size = new System.Drawing.Size(661, 257);
+            this.inputTextBox.Size = new System.Drawing.Size(661, 218);
             this.inputTextBox.TabIndex = 0;
             this.inputTextBox.Text = "";
             this.inputTextBox.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
+            // 
+            // paramTextBox
+            // 
+            this.paramTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.paramTextBox.Location = new System.Drawing.Point(0, 0);
+            this.paramTextBox.Name = "paramTextBox";
+            this.paramTextBox.Size = new System.Drawing.Size(661, 35);
+            this.paramTextBox.TabIndex = 0;
+            this.paramTextBox.Text = "";
+            this.paramTextBox.TextChanged += new System.EventHandler(this.paramTextBox_TextChanged);
             // 
             // outputTextBox
             // 
@@ -124,6 +158,10 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -135,6 +173,8 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.RichTextBox inputTextBox;
         private System.Windows.Forms.RichTextBox outputTextBox;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.RichTextBox paramTextBox;
     }
 }
 

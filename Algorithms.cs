@@ -7,6 +7,7 @@ namespace TextManipulationUtility
     using System.Linq;
     using System.Net;
     using System.Text;
+    using System.Text.RegularExpressions;
 
     class Algorithms
     {
@@ -164,6 +165,30 @@ namespace TextManipulationUtility
                 return sb.ToString();
             }));
 
+            algorithms.Add(new Algorithm("Search", "Regex", (input, param) =>
+            {
+                var matches = Regex.Matches(input, param);
+
+                var sb = new StringBuilder();
+                sb.Append("{\\rtf1 ");
+                sb.Append(@"{\colortbl;\red0\green0\blue0;\red255\green216\blue0;}");
+
+                int from = 0;
+                foreach (Match match in matches)
+                {
+                    sb.Append(input.Substring(from, match.Index - from));
+                    sb.AppendFormat("{{\\highlight2 {0}}}", input.Substring(match.Index, match.Length));
+
+                    from = match.Index + match.Length;
+                }
+
+                sb.Append(input.Substring(from));
+
+                sb.Append("}");
+
+                return sb.ToString();
+            }));
+
             algorithms.Add(new Algorithm("List", "Split", (input, param) =>
             {
                 var elements = input.Split(param.ToCharArray());
@@ -192,14 +217,7 @@ namespace TextManipulationUtility
             {
                 using (var webClient = new WebClient())
                 {
-                    try
-                    {
-                        return webClient.DownloadString(input);
-                    }
-                    catch (Exception e)
-                    {
-                        return e.Message;
-                    }
+                    return webClient.DownloadString(input);
                 }
             }));
         }

@@ -49,15 +49,22 @@
         {
             if (selectedAlgorithm != null)
             {
-                var result = selectedAlgorithm.Apply(inputTextBox.Text, paramTextBox.Text);
+                try
+                {
+                    var result = selectedAlgorithm.Apply(inputTextBox.Text, paramTextBox.Text);
 
-                if (result.StartsWith(@"{\rtf"))
-                {
-                    outputTextBox.Rtf = result;
+                    if (result.StartsWith(@"{\rtf"))
+                    {
+                        outputTextBox.Rtf = result;
+                    }
+                    else
+                    {
+                        outputTextBox.Text = result;
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    outputTextBox.Text = result;
+                    outputTextBox.Text = "Error: " + e.Message;
                 }
             }
         }

@@ -22,6 +22,8 @@
                 node.Tag = algorithm;
             }
 
+            manipulationsTreeView.Sort();
+
             inputTextBox.Text = Clipboard.GetText();
         }
 

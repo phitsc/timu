@@ -33,7 +33,7 @@ namespace TextManipulationUtility
                 return CountAlphabet(input, false);
             }));
 
-            algorithms.Add(new Algorithm("Count", "case-insensitive", (input, param) =>
+            algorithms.Add(new Algorithm("Count", "Alphabet case-insensitive", (input, param) =>
             {
                 return CountAlphabet(input, true);
             }));

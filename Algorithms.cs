@@ -49,7 +49,7 @@ namespace TextManipulationUtility
                 return textInfo.ToLower(input);
             }));
 
-            algorithms.Add(new Algorithm("Capitalisation", "Camel", (input, param) =>
+            algorithms.Add(new Algorithm("Capitalisation", "Title", (input, param) =>
             {
                 return textInfo.ToTitleCase(input);
             }));

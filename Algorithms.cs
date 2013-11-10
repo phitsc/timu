@@ -1,5 +1,4 @@
-﻿
-namespace TextManipulationUtility
+﻿namespace TextManipulationUtility
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace TextManipulationUtility
     using System.Text;
     using System.Text.RegularExpressions;
 
-    class Algorithms
+    internal class Algorithms
     {
         private TextInfo textInfo = System.Globalization.CultureInfo.CurrentCulture.TextInfo;
         private Random rnd = new Random();
@@ -26,7 +25,7 @@ namespace TextManipulationUtility
                 int wordCount = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).Length;
                 int lineCount = input.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).Length;
 
-                return String.Format("{0} characters. {1} words. {2} lines.", characterCount, wordCount, lineCount);
+                return string.Format("{0} characters. {1} words. {2} lines.", characterCount, wordCount, lineCount);
             }));
 
             algorithms.Add(new Algorithm("Count", "Alphabet", (input, param) =>

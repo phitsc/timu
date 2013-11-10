@@ -1,8 +1,8 @@
-﻿
-using System;
-namespace TextManipulationUtility
+﻿namespace TextManipulationUtility
 {
-    class Algorithm
+    using System;
+
+    internal class Algorithm
     {
         private Func<string, string, string> apply;
 
@@ -14,11 +14,12 @@ namespace TextManipulationUtility
         }
 
         public string Group { get; private set; }
+
         public string Name { get; private set; }
 
         public string Apply(string input, string param)
         {
-            return apply(input, param);
+            return this.apply(input, param);
         }
     }
 }

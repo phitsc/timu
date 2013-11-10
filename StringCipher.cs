@@ -4,27 +4,28 @@
 namespace TextManipulationUtility
 {
     using System;
-    using System.Linq;
-    using System.Text;
-    using System.Security.Cryptography;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
+    using System.Security.Cryptography;
+    using System.Text;
 
     public static class StringCipher
     {
         // This constant string is used as a "salt" value for the PasswordDeriveBytes function calls.
         // This size of the IV (in bytes) must = (keysize / 8).  Default keysize is 256, so the IV must be
         // 32 bytes long.  Using a 16 character string here gives us 32 bytes when converted to a byte array.
-        private const string initVector = "90ut89eui24gj8t3";
+        private const string InitVector = "90ut89eui24gj8t3";
 
         // This constant is used to determine the keysize of the encryption algorithm.
-        private const int keysize = 256;
+        private const int Keysize = 256;
 
+        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
         public static string Encrypt(string plainText, string passPhrase)
         {
-            byte[] initVectorBytes = Encoding.UTF8.GetBytes(initVector);
+            byte[] initVectorBytes = Encoding.UTF8.GetBytes(InitVector);
             byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             PasswordDeriveBytes password = new PasswordDeriveBytes(passPhrase, null);
-            byte[] keyBytes = password.GetBytes(keysize / 8);
+            byte[] keyBytes = password.GetBytes(Keysize / 8);
             RijndaelManaged symmetricKey = new RijndaelManaged();
             symmetricKey.Mode = CipherMode.CBC;
             ICryptoTransform encryptor = symmetricKey.CreateEncryptor(keyBytes, initVectorBytes);
@@ -38,12 +39,13 @@ namespace TextManipulationUtility
             return Convert.ToBase64String(cipherTextBytes);
         }
 
+        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
         public static string Decrypt(string cipherText, string passPhrase)
         {
-            byte[] initVectorBytes = Encoding.ASCII.GetBytes(initVector);
+            byte[] initVectorBytes = Encoding.ASCII.GetBytes(InitVector);
             byte[] cipherTextBytes = Convert.FromBase64String(cipherText);
             PasswordDeriveBytes password = new PasswordDeriveBytes(passPhrase, null);
-            byte[] keyBytes = password.GetBytes(keysize / 8);
+            byte[] keyBytes = password.GetBytes(Keysize / 8);
             RijndaelManaged symmetricKey = new RijndaelManaged();
             symmetricKey.Mode = CipherMode.CBC;
             ICryptoTransform decryptor = symmetricKey.CreateDecryptor(keyBytes, initVectorBytes);

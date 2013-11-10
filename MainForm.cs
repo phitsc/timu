@@ -12,7 +12,7 @@
         {
             InitializeComponent();
 
-            foreach (var algorithm in this.algorithms.algorithms)
+            foreach (var algorithm in this.algorithms.List)
             {
                 var nodes = this.manipulationsTreeView.Nodes.Find(algorithm.Group, false);
                 var groupNode = nodes.Length == 0 ? this.manipulationsTreeView.Nodes.Add(algorithm.Group, algorithm.Group) : nodes[0];

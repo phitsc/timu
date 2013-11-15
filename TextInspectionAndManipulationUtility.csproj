@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Algorithm.cs" />
     <Compile Include="Algorithms.cs" />
+    <Compile Include="FreeFunctions.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

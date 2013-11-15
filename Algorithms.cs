@@ -29,11 +29,9 @@
 
             List.Add(new Algorithm("Count", "Chars, Words, Lines", (input, param) =>
             {
-                int characterCount = input.Count();
-                int wordCount = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).Length;
-                int lineCount = input.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).Length;
+                var counts = FreeFunctions.Count(input);
 
-                return string.Format("{0} characters. {1} words. {2} lines.", characterCount, wordCount, lineCount);
+                return string.Format("{0} characters, {1} words, {2} lines.", counts.Item1, counts.Item2, counts.Item3);
             }));
 
             List.Add(new Algorithm("Count", "Alphabet", (input, param) =>
@@ -227,6 +225,14 @@
                     return webClient.DownloadString(input);
                 }
             }));
+
+            List.Add(new Algorithm("List", "Filter", (i, p) =>
+            {
+                var elements = i.Split(new char[] { '\n' });
+                var query = from line in elements where line.Contains(p) select line;
+                return string.Join("\n", query);
+            }));
+
         }
 
         private static string CountAlphabet(string input, bool caseInsensitive)

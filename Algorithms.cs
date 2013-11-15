@@ -150,22 +150,18 @@
                     pos = input.IndexOf(param, pos + 1);
                 }
 
-                var sb = new StringBuilder();
-                sb.Append("{\\rtf1 ");
-                sb.Append(@"{\colortbl;\red0\green0\blue0;\red255\green216\blue0;}");
+                var sb = new RtfStringBuilder();
 
                 int from = 0;
                 for (int index = 0; index < finds.Count; ++index)
                 {
                     sb.Append(input.Substring(from, finds[index] - from));
-                    sb.AppendFormat("{{\\highlight2 {0}}}", input.Substring(finds[index], param.Length));
+                    sb.AppendHighlighted(input.Substring(finds[index], param.Length));
 
                     from = finds[index] + param.Length;
                 }
 
                 sb.Append(input.Substring(from));
-
-                sb.Append("}");
 
                 return sb.ToString();
             }));
@@ -174,22 +170,18 @@
             {
                 var matches = Regex.Matches(input, param);
 
-                var sb = new StringBuilder();
-                sb.Append("{\\rtf1 ");
-                sb.Append(@"{\colortbl;\red0\green0\blue0;\red255\green216\blue0;}");
+                var sb = new RtfStringBuilder();
 
                 int from = 0;
                 foreach (Match match in matches)
                 {
                     sb.Append(input.Substring(from, match.Index - from));
-                    sb.AppendFormat("{{\\highlight2 {0}}}", input.Substring(match.Index, match.Length));
+                    sb.AppendHighlighted(input.Substring(match.Index, match.Length));
 
                     from = match.Index + match.Length;
                 }
 
                 sb.Append(input.Substring(from));
-
-                sb.Append("}");
 
                 return sb.ToString();
             }));

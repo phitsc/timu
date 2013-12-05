@@ -218,6 +218,16 @@
                 }
             }));
 
+            List.Add(new Algorithm("Web", "To Leet", (input, param) =>
+            {
+                return Leet.ToLeet(input);
+            }));
+
+            List.Add(new Algorithm("Web", "From Leet", (input, param) =>
+            {
+                return Leet.FromLeet(input);
+            }));
+
             List.Add(new Algorithm("List", "Filter", (i, p) =>
             {
                 var elements = i.Split(new char[] { '\n' });

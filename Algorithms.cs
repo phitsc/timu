@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Net;
     using System.Reflection;
@@ -24,7 +25,13 @@
             {
                 var assembly = Assembly.GetExecutingAssembly();
 
-                return string.Format("Text Inspection & Manipulation Utility vers. {0}", assembly.GetName().Version);
+                var sb = new RtfStringBuilder();
+
+                sb.AppendBold(string.Format("Text Inspection & Manipulation Utility vers. {0}", assembly.GetName().Version));
+                sb.Append("\n\n");
+                sb.Append(global::TextManipulationUtility.Properties.Resources.History);
+
+                return sb.ToString();
             }));
 
             List.Add(new Algorithm("Count", "Chars, Words, Lines", (input, param) =>

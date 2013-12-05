@@ -8,32 +8,32 @@
     {
         private static List<Tuple<string, string>> tokenDictionary = new List<Tuple<string, string>>()
         {
-            new Tuple<string, string>("A", "4"),
-            new Tuple<string, string>("B", "8"),
-            new Tuple<string, string>("C", "("),
-            new Tuple<string, string>("D", "|)"),
-            new Tuple<string, string>("E", "3"),
-            new Tuple<string, string>("F", "|="),
-            new Tuple<string, string>("G", "6"),
-            new Tuple<string, string>("H", "|-|"),
-            new Tuple<string, string>("I", "!"),
-            new Tuple<string, string>("J", "_|"),
-            new Tuple<string, string>("K", "|<"),
-            new Tuple<string, string>("L", "1"),
-            new Tuple<string, string>("M", "|\\/|"),
-            new Tuple<string, string>("N", "|\\|"),
-            new Tuple<string, string>("O", "0"),
-            new Tuple<string, string>("P", "|°"),
-            new Tuple<string, string>("Q", "0_"),
-            new Tuple<string, string>("R", "2"),
-            new Tuple<string, string>("S", "5"),
-            new Tuple<string, string>("T", "7"),
-            new Tuple<string, string>("U", "|_|"),
-            new Tuple<string, string>("V", "\\/"),
-            new Tuple<string, string>("W", "\\/\\/"),
-            new Tuple<string, string>("X", "%"),
-            new Tuple<string, string>("Y", "`/,"),
-            new Tuple<string, string>("Z", "2"),
+            new Tuple<string, string>("a", "4"),
+            new Tuple<string, string>("b", "8"),
+            new Tuple<string, string>("c", "("),
+            new Tuple<string, string>("d", "|)"),
+            new Tuple<string, string>("e", "3"),
+            new Tuple<string, string>("f", "|="),
+            new Tuple<string, string>("g", "6"),
+            new Tuple<string, string>("h", "|-|"),
+            new Tuple<string, string>("i", "!"),
+            new Tuple<string, string>("j", "_|"),
+            new Tuple<string, string>("k", "|<"),
+            new Tuple<string, string>("l", "1"),
+            new Tuple<string, string>("m", "|\\/|"),
+            new Tuple<string, string>("n", "|\\|"),
+            new Tuple<string, string>("o", "0"),
+            new Tuple<string, string>("p", "|°"),
+            new Tuple<string, string>("q", "0_"),
+            new Tuple<string, string>("r", "2"),
+            new Tuple<string, string>("s", "5"),
+            new Tuple<string, string>("t", "7"),
+            new Tuple<string, string>("u", "|_|"),
+            new Tuple<string, string>("v", "\\/"),
+            new Tuple<string, string>("w", "\\/\\/"),
+            new Tuple<string, string>("x", "%"),
+            new Tuple<string, string>("y", "`/,"),
+            new Tuple<string, string>("z", "2"),
         };
 
         public static string ToLeet(string input)
@@ -83,7 +83,7 @@
 
         private static string TokenToLeet(string token)
         {
-            var item = tokenDictionary.Find(delegate(Tuple<string, string> t) { return t.Item1 == token.ToUpper(); });
+            var item = tokenDictionary.Find(delegate(Tuple<string, string> t) { return t.Item1 == token.ToLower(); });
             if (item != null)
             {
                 return item.Item2;

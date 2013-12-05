@@ -22,6 +22,11 @@
             sb.AppendFormat("{{\\highlight2 {0}}}", s);
         }
 
+        public void AppendBold(string s)
+        {
+            sb.AppendFormat("{{\\b {0}}}", s);
+        }
+
         public override string ToString()
         {
             return sb.ToString().Replace("\n", "{{\\line}}") + "}";

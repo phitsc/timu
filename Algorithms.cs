@@ -130,14 +130,29 @@
                 return sb.ToString();
             }));
 
-            List.Add(new Algorithm("Sort", "A-Z", (input, param) =>
+            List.Add(new Algorithm("Sort", "Lines A-Z", (input, param) =>
+            {
+                var words = input.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                Array.Sort(words);
+                return string.Join("\n", words);
+            }));
+
+            List.Add(new Algorithm("Sort", "Lines Z-A", (input, param) =>
+            {
+                var words = input.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                Array.Sort(words);
+                Array.Reverse(words);
+                return string.Join("\n", words);
+            }));
+
+            List.Add(new Algorithm("Sort", "Words A-Z", (input, param) =>
             {
                 var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 Array.Sort(words);
                 return string.Join(" ", words);
             }));
 
-            List.Add(new Algorithm("Sort", "Z-A", (input, param) =>
+            List.Add(new Algorithm("Sort", "Words Z-A", (input, param) =>
             {
                 var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 Array.Sort(words);
@@ -195,7 +210,7 @@
 
             List.Add(new Algorithm("List", "Split", (input, param) =>
             {
-                var elements = input.Split(param.ToCharArray());
+                var elements = input.Split(param.Split(new char[] { ',' }), StringSplitOptions.None);
 
                 return string.Join("\n", elements);
             }));

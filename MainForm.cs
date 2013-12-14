@@ -93,5 +93,20 @@
 
             this.outputStatusTextBox.Text = string.Format("{0} characters, {1} words, {2} lines.", counts.Item1, counts.Item2, counts.Item3);
         }
+
+        private void buttonPasteToInput_Click(object sender, EventArgs e)
+        {
+            this.inputTextBox.Text = Clipboard.GetText();
+        }
+
+        private void buttonCopyOutputToClipboard_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(this.outputTextBox.Text);
+        }
+
+        private void buttonCopyOutputToInput_Click(object sender, EventArgs e)
+        {
+            this.inputTextBox.Text = this.outputTextBox.Text;
+        }
     }
 }

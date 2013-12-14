@@ -61,7 +61,41 @@ namespace TextManipulationUtility.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to # Version history
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap editcopy {
+            get {
+                object obj = ResourceManager.GetObject("editcopy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap editcopy32 {
+            get {
+                object obj = ResourceManager.GetObject("editcopy32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap editpaste {
+            get {
+                object obj = ResourceManager.GetObject("editpaste", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to === Version history ===
+        ///
+        ///0.3 - 14. Dec. 2013
+        ///* Added sort lines
+        ///* List/Split now splits by words instead of by characters
         ///
         ///0.2 - 5. Dec. 2013
         ///* Added to/from Leet.

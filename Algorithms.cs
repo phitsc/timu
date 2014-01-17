@@ -15,13 +15,16 @@
         private TextInfo textInfo = System.Globalization.CultureInfo.CurrentCulture.TextInfo;
         private Random rnd = new Random();
 
+        private char[] WordSeparators = new char[] { ' ', '\r', '\n' };
+        private char[] LineSeparators = new char[] { '\r', '\n' };
+
         public List<Algorithm> List { get; private set; }
 
         public Algorithms()
         {
             List = new List<Algorithm>();
 
-            List.Add(new Algorithm("About", "About", (input, param) =>
+            List.Add(new Algorithm("About", "About", false, "", "", (input, param) =>
             {
                 var assembly = Assembly.GetExecutingAssembly();
 
@@ -34,67 +37,67 @@
                 return sb.ToString();
             }));
 
-            List.Add(new Algorithm("Count", "Chars, Words, Lines", (input, param) =>
+            List.Add(new Algorithm("Count", "Chars, Words, Lines", false, "", "", (input, param) =>
             {
                 var counts = FreeFunctions.Count(input);
 
                 return string.Format("{0} characters, {1} words, {2} lines.", counts.Item1, counts.Item2, counts.Item3);
             }));
 
-            List.Add(new Algorithm("Count", "Alphabet", (input, param) =>
+            List.Add(new Algorithm("Count", "Alphabet", false, "", "", (input, param) =>
             {
                 return CountAlphabet(input, false);
             }));
 
-            List.Add(new Algorithm("Count", "Alphabet case-insensitive", (input, param) =>
+            List.Add(new Algorithm("Count", "Alphabet case-insensitive", false, "", "", (input, param) =>
             {
                 return CountAlphabet(input, true);
             }));
 
-            List.Add(new Algorithm("Capitalisation", "Upper", (input, param) =>
+            List.Add(new Algorithm("Capitalisation", "Upper", false, "", "", (input, param) =>
             {
                 return textInfo.ToUpper(input);
             }));
 
-            List.Add(new Algorithm("Capitalisation", "Lower", (input, param) =>
+            List.Add(new Algorithm("Capitalisation", "Lower", false, "", "", (input, param) =>
             {
                 return textInfo.ToLower(input);
             }));
 
-            List.Add(new Algorithm("Capitalisation", "Title", (input, param) =>
+            List.Add(new Algorithm("Capitalisation", "Title", false, "", "", (input, param) =>
             {
                 return textInfo.ToTitleCase(input);
             }));
 
-            List.Add(new Algorithm("Order", "Reverse", (input, param) =>
+            List.Add(new Algorithm("Order", "Reverse", false, "", "", (input, param) =>
             {
                 var c = input.ToCharArray();
                 Array.Reverse(c);
                 return new String(c);
             }));
 
-            List.Add(new Algorithm("Order", "Reverse words", (input, param) =>
+            List.Add(new Algorithm("Order", "Reverse words", false, "", "", (input, param) =>
             {
-                var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
                 Array.Reverse(words);
                 return string.Join(" ", words);
             }));
 
-            List.Add(new Algorithm("Order", "Scramble", (input, param) =>
+            List.Add(new Algorithm("Order", "Scramble", false, "", "", (input, param) =>
             {
                 var c = input.ToCharArray();
                 return new String(c.OrderBy(x => rnd.Next()).ToArray());
             }));
 
-            List.Add(new Algorithm("Order", "Scramble words", (input, param) =>
+            List.Add(new Algorithm("Order", "Scramble words", false, "", "", (input, param) =>
             {
-                var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
                 return string.Join(" ", words.OrderBy(x => rnd.Next()).ToArray());
             }));
 
-            List.Add(new Algorithm("Order", "Scramble within words", (input, param) =>
+            List.Add(new Algorithm("Order", "Scramble within words", false, "", "", (input, param) =>
             {
-                var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
 
                 for (var index = 0; index < words.Length; ++index)
                 {
@@ -110,17 +113,17 @@
                 return string.Join(" ", words);
             }));
 
-            List.Add(new Algorithm("Checksum", "MD5", (input, param) =>
+            List.Add(new Algorithm("Checksum", "MD5", false, "", "", (input, param) =>
             {
                 return Md5(input);
             }));
 
-            List.Add(new Algorithm("Checksum", "SHA-256", (input, param) =>
+            List.Add(new Algorithm("Checksum", "SHA-256", false, "", "", (input, param) =>
             {
                 return Sha256(input);
             }));
 
-            List.Add(new Algorithm("Checksum", "Checksum", (input, param) =>
+            List.Add(new Algorithm("Checksum", "Checksum", false, "", "", (input, param) =>
             {
                 var sb = new StringBuilder();
 
@@ -130,37 +133,37 @@
                 return sb.ToString();
             }));
 
-            List.Add(new Algorithm("Sort", "Lines A-Z", (input, param) =>
+            List.Add(new Algorithm("Sort", "Lines A-Z", false, "", "", (input, param) =>
             {
-                var words = input.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                Array.Sort(words);
-                return string.Join("\n", words);
+                var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
+                Array.Sort(lines);
+                return string.Join("\n", lines);
             }));
 
-            List.Add(new Algorithm("Sort", "Lines Z-A", (input, param) =>
+            List.Add(new Algorithm("Sort", "Lines Z-A", false, "", "", (input, param) =>
             {
-                var words = input.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                Array.Sort(words);
-                Array.Reverse(words);
-                return string.Join("\n", words);
+                var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
+                Array.Sort(lines);
+                Array.Reverse(lines);
+                return string.Join("\n", lines);
             }));
 
-            List.Add(new Algorithm("Sort", "Words A-Z", (input, param) =>
+            List.Add(new Algorithm("Sort", "Words A-Z", false, "", "", (input, param) =>
             {
-                var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
                 Array.Sort(words);
                 return string.Join(" ", words);
             }));
 
-            List.Add(new Algorithm("Sort", "Words Z-A", (input, param) =>
+            List.Add(new Algorithm("Sort", "Words Z-A", false, "", "", (input, param) =>
             {
-                var words = input.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
                 Array.Sort(words);
                 Array.Reverse(words);
                 return string.Join(" ", words);
             }));
 
-            List.Add(new Algorithm("Search", "Simple", (input, param) =>
+            List.Add(new Algorithm("Search", "Simple", true, "", "", (input, param) =>
             {
                 var finds = new List<int>();
 
@@ -188,7 +191,7 @@
                 return sb.ToString();
             }));
 
-            List.Add(new Algorithm("Search", "Regex", (input, param) =>
+            List.Add(new Algorithm("Search", "Regex", true, "", "", (input, param) =>
             {
                 var matches = Regex.Matches(input, param);
 
@@ -208,31 +211,62 @@
                 return sb.ToString();
             }));
 
-            List.Add(new Algorithm("List", "Split", (input, param) =>
+            List.Add(new Algorithm("List", "Split", true, "", "Comma-separated list of separator strings", (input, param) =>
             {
                 var elements = input.Split(param.Split(new char[] { ',' }), StringSplitOptions.None);
 
                 return string.Join("\n", elements);
             }));
 
-            List.Add(new Algorithm("List", "Join", (input, param) =>
+            List.Add(new Algorithm("List", "Join", false, "", "", (input, param) =>
             {
                 var elements = input.Split(new char[] { '\n' });
 
                 return string.Join(param, elements);
             }));
 
-            List.Add(new Algorithm("Encryption", "Encrypt", (input, param) =>
+            List.Add(new Algorithm("List", "Append", true, "", "Text to add at each line's end", (input, param) =>
+            {
+                var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
+
+                for (var index = 0; index < lines.Length; ++index)
+                {
+                    lines[index] += param;
+                }
+
+                return string.Join("\n", lines);
+            }));
+
+            List.Add(new Algorithm("List", "Prepend", true, "", "Text to add at each line's beginning", (input, param) =>
+            {
+                var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
+
+                for (var index = 0; index < lines.Length; ++index)
+                {
+                    lines[index] = param + lines[index];
+                }
+
+                return string.Join("\n", lines);
+            }));
+
+            List.Add(new Algorithm("List", "Remove empty lines", false, "", "", (input, param) =>
+            {
+                var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
+
+                return string.Join("\n", lines);
+            }));
+
+            List.Add(new Algorithm("Encryption", "Encrypt", true, "", "Password", (input, param) =>
             {
                 return StringCipher.Encrypt(input, param);
             }));
 
-            List.Add(new Algorithm("Encryption", "Decrypt", (input, param) =>
+            List.Add(new Algorithm("Encryption", "Decrypt", true, "", "Password", (input, param) =>
             {
                 return StringCipher.Decrypt(input, param);
             }));
 
-            List.Add(new Algorithm("Web", "Source", (input, param) =>
+            List.Add(new Algorithm("Web", "Source", false, "A valid URL", "", (input, param) =>
             {
                 using (var webClient = new WebClient())
                 {
@@ -240,17 +274,17 @@
                 }
             }));
 
-            List.Add(new Algorithm("Web", "To Leet", (input, param) =>
+            List.Add(new Algorithm("Web", "To Leet", false, "", "", (input, param) =>
             {
                 return Leet.ToLeet(input);
             }));
 
-            List.Add(new Algorithm("Web", "From Leet", (input, param) =>
+            List.Add(new Algorithm("Web", "From Leet", false, "", "", (input, param) =>
             {
                 return Leet.FromLeet(input);
             }));
 
-            List.Add(new Algorithm("List", "Filter", (i, p) =>
+            List.Add(new Algorithm("List", "Filter", true, "", "", (i, p) =>
             {
                 var elements = i.Split(new char[] { '\n' });
                 var query = from line in elements where line.Contains(p) select line;

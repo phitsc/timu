@@ -8,6 +8,8 @@
     {
         private Algorithms algorithms = new Algorithms();
         private Algorithm selectedAlgorithm;
+        private ToolTip inputHint;
+        private ToolTip paramHint;
 
         public MainForm()
         {
@@ -40,8 +42,21 @@
 
         private void manipulationsTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            if (this.inputHint != null)
+            {
+                this.inputHint.Dispose();
+                this.inputHint = null;
+            }
+
+            if (this.paramHint != null)
+            {
+                this.paramHint.Dispose();
+                this.paramHint = null;
+            }
+
             var treeView = (TreeView)sender;
             this.selectedAlgorithm = (Algorithm)treeView.SelectedNode.Tag;
+            this.paramTextBox.Enabled = this.selectedAlgorithm != null ? this.selectedAlgorithm.RequiresParam : false;
 
             this.UpdateOutput();
         }
@@ -107,6 +122,34 @@
         private void buttonCopyOutputToInput_Click(object sender, EventArgs e)
         {
             this.inputTextBox.Text = this.outputTextBox.Text;
+        }
+
+        private void toggleHint(ref ToolTip tooltip, RichTextBox textBox, string hint)
+        {
+                if (tooltip != null)
+                {
+                    tooltip.Dispose();
+                    tooltip = null;
+                }
+                else 
+                {
+                    tooltip = new ToolTip();
+                    tooltip.InitialDelay = 0;
+                    tooltip.Show(hint, textBox, textBox.Width / 3, 4);
+                }
+
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.F1))
+            {
+                toggleHint(ref this.inputHint, this.inputTextBox, this.selectedAlgorithm.InputHint);
+                toggleHint(ref this.paramHint, this.paramTextBox, this.selectedAlgorithm.ParamHint);
+
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

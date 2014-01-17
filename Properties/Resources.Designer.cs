@@ -95,7 +95,8 @@ namespace TextManipulationUtility.Properties {
         ///
         ///0.3 - 14. Dec. 2013
         ///* Added sort lines
-        ///* List/Split now splits by words instead of by characters
+        ///* List/Split now splits by words instead of by characters (use , to delimit individual words)
+        ///* Added some buttons for clipboard operations and to copy output back to input
         ///
         ///0.2 - 5. Dec. 2013
         ///* Added to/from Leet.

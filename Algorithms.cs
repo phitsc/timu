@@ -37,65 +37,65 @@
                 return sb.ToString();
             }));
 
-            List.Add(new Algorithm("Count", "Chars, Words, Lines", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Count", "Chars, Words, Lines", false, "Text to count", "", (input, param) =>
             {
                 var counts = FreeFunctions.Count(input);
 
                 return string.Format("{0} characters, {1} words, {2} lines.", counts.Item1, counts.Item2, counts.Item3);
             }));
 
-            List.Add(new Algorithm("Count", "Alphabet", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Count", "Alphabet", false, "Text to count", "", (input, param) =>
             {
                 return CountAlphabet(input, false);
             }));
 
-            List.Add(new Algorithm("Count", "Alphabet case-insensitive", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Count", "Alphabet case-insensitive", false, "Text to count", "", (input, param) =>
             {
                 return CountAlphabet(input, true);
             }));
 
-            List.Add(new Algorithm("Capitalisation", "Upper", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Capitalisation", "Upper", false, "Text to convert to upper case", "", (input, param) =>
             {
                 return textInfo.ToUpper(input);
             }));
 
-            List.Add(new Algorithm("Capitalisation", "Lower", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Capitalisation", "Lower", false, "Text to convert to lower case", "", (input, param) =>
             {
                 return textInfo.ToLower(input);
             }));
 
-            List.Add(new Algorithm("Capitalisation", "Title", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Capitalisation", "Title", false, "Text to convert to title case", "", (input, param) =>
             {
                 return textInfo.ToTitleCase(input);
             }));
 
-            List.Add(new Algorithm("Order", "Reverse", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Order", "Reverse", false, "Text to reverse", "", (input, param) =>
             {
                 var c = input.ToCharArray();
                 Array.Reverse(c);
                 return new String(c);
             }));
 
-            List.Add(new Algorithm("Order", "Reverse words", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Order", "Reverse words", false, "Text to reverse words", "", (input, param) =>
             {
                 var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
                 Array.Reverse(words);
                 return string.Join(" ", words);
             }));
 
-            List.Add(new Algorithm("Order", "Scramble", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Order", "Scramble", false, "Text to scramble", "", (input, param) =>
             {
                 var c = input.ToCharArray();
                 return new String(c.OrderBy(x => rnd.Next()).ToArray());
             }));
 
-            List.Add(new Algorithm("Order", "Scramble words", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Order", "Scramble words", false, "Text to scramble words", "", (input, param) =>
             {
                 var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
                 return string.Join(" ", words.OrderBy(x => rnd.Next()).ToArray());
             }));
 
-            List.Add(new Algorithm("Order", "Scramble within words", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Order", "Scramble within words", false, "Text to scramble within words", "", (input, param) =>
             {
                 var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
 
@@ -113,17 +113,17 @@
                 return string.Join(" ", words);
             }));
 
-            List.Add(new Algorithm("Checksum", "MD5", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Checksum", "MD5", false, "Text to calculate checksum", "", (input, param) =>
             {
                 return Md5(input);
             }));
 
-            List.Add(new Algorithm("Checksum", "SHA-256", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Checksum", "SHA-256", false, "Text to calculate checksum", "", (input, param) =>
             {
                 return Sha256(input);
             }));
 
-            List.Add(new Algorithm("Checksum", "Checksum", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Checksum", "Checksum", false, "Text to calculate checksum", "", (input, param) =>
             {
                 var sb = new StringBuilder();
 
@@ -133,14 +133,14 @@
                 return sb.ToString();
             }));
 
-            List.Add(new Algorithm("Sort", "Lines A-Z", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Sort", "Lines A-Z", false, "Text to sort", "", (input, param) =>
             {
                 var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
                 Array.Sort(lines);
                 return string.Join("\n", lines);
             }));
 
-            List.Add(new Algorithm("Sort", "Lines Z-A", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Sort", "Lines Z-A", false, "Text to sort", "", (input, param) =>
             {
                 var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
                 Array.Sort(lines);
@@ -148,14 +148,14 @@
                 return string.Join("\n", lines);
             }));
 
-            List.Add(new Algorithm("Sort", "Words A-Z", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Sort", "Words A-Z", false, "Text to sort", "", (input, param) =>
             {
                 var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
                 Array.Sort(words);
                 return string.Join(" ", words);
             }));
 
-            List.Add(new Algorithm("Sort", "Words Z-A", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Sort", "Words Z-A", false, "Text to sort", "", (input, param) =>
             {
                 var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
                 Array.Sort(words);
@@ -163,7 +163,7 @@
                 return string.Join(" ", words);
             }));
 
-            List.Add(new Algorithm("Search", "Simple", true, "", "", (input, param) =>
+            List.Add(new Algorithm("Search", "Simple", true, "Text to search", "Search term", (input, param) =>
             {
                 var finds = new List<int>();
 
@@ -191,7 +191,7 @@
                 return sb.ToString();
             }));
 
-            List.Add(new Algorithm("Search", "Regex", true, "", "", (input, param) =>
+            List.Add(new Algorithm("Search", "Regex", true, "Text to search", "Search regular expression", (input, param) =>
             {
                 var matches = Regex.Matches(input, param);
 
@@ -211,21 +211,21 @@
                 return sb.ToString();
             }));
 
-            List.Add(new Algorithm("List", "Split", true, "", "Comma-separated list of separator strings", (input, param) =>
+            List.Add(new Algorithm("List", "Split", true, "Text to split", "Comma-separated list of separator strings", (input, param) =>
             {
                 var elements = input.Split(param.Split(new char[] { ',' }), StringSplitOptions.None);
 
                 return string.Join("\n", elements);
             }));
 
-            List.Add(new Algorithm("List", "Join", false, "", "", (input, param) =>
+            List.Add(new Algorithm("List", "Join", false, "List of text lines", "", (input, param) =>
             {
                 var elements = input.Split(new char[] { '\n' });
 
                 return string.Join(param, elements);
             }));
 
-            List.Add(new Algorithm("List", "Append", true, "", "Text to add at each line's end", (input, param) =>
+            List.Add(new Algorithm("List", "Append", true, "List of text lines", "Text to add at each line's end", (input, param) =>
             {
                 var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
 
@@ -237,7 +237,7 @@
                 return string.Join("\n", lines);
             }));
 
-            List.Add(new Algorithm("List", "Prepend", true, "", "Text to add at each line's beginning", (input, param) =>
+            List.Add(new Algorithm("List", "Prepend", true, "List of text lines", "Text to add at each line's beginning", (input, param) =>
             {
                 var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
 
@@ -249,19 +249,19 @@
                 return string.Join("\n", lines);
             }));
 
-            List.Add(new Algorithm("List", "Remove empty lines", false, "", "", (input, param) =>
+            List.Add(new Algorithm("List", "Remove empty lines", false, "List of text lines", "", (input, param) =>
             {
                 var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
 
                 return string.Join("\n", lines);
             }));
 
-            List.Add(new Algorithm("Encryption", "Encrypt", true, "", "Password", (input, param) =>
+            List.Add(new Algorithm("Encryption", "Encrypt", true, "Text to encrypt", "Password", (input, param) =>
             {
                 return StringCipher.Encrypt(input, param);
             }));
 
-            List.Add(new Algorithm("Encryption", "Decrypt", true, "", "Password", (input, param) =>
+            List.Add(new Algorithm("Encryption", "Decrypt", true, "Encrypted text to decrypt", "Password", (input, param) =>
             {
                 return StringCipher.Decrypt(input, param);
             }));
@@ -274,17 +274,17 @@
                 }
             }));
 
-            List.Add(new Algorithm("Web", "To Leet", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Web", "To Leet", false, "Text to convert to leet", "", (input, param) =>
             {
                 return Leet.ToLeet(input);
             }));
 
-            List.Add(new Algorithm("Web", "From Leet", false, "", "", (input, param) =>
+            List.Add(new Algorithm("Web", "From Leet", false, "Text to convert from leet", "", (input, param) =>
             {
                 return Leet.FromLeet(input);
             }));
 
-            List.Add(new Algorithm("List", "Filter", true, "", "", (i, p) =>
+            List.Add(new Algorithm("List", "Filter", true, "List of text lines", "Filter term", (i, p) =>
             {
                 var elements = i.Split(new char[] { '\n' });
                 var query = from line in elements where line.Contains(p) select line;

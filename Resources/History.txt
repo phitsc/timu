@@ -1,5 +1,11 @@
 === Version history ===
 
+0.5 - 18. Jan 2014
+* Input field and parameter filed now show a hint right above the respective field
+* Added
+  * Order - Reverse lines
+  * Order - Scramble lines
+
 0.4 - 17. Jan 2014
 * Parameter field is now disabled if it doesn't apply
 * Added

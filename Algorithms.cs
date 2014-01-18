@@ -83,6 +83,13 @@
                 return string.Join(" ", words);
             }));
 
+            List.Add(new Algorithm("Order", "Reverse lines", false, "Text to reverse lines", "", (input, param) =>
+            {
+                var lines = input.Split(LineSeparators, StringSplitOptions.None);
+                Array.Reverse(lines);
+                return string.Join("\n", lines);
+            }));
+
             List.Add(new Algorithm("Order", "Scramble", false, "Text to scramble", "", (input, param) =>
             {
                 var c = input.ToCharArray();
@@ -93,6 +100,12 @@
             {
                 var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
                 return string.Join(" ", words.OrderBy(x => rnd.Next()).ToArray());
+            }));
+
+            List.Add(new Algorithm("Order", "Scramble lines", false, "Text to scramble lines", "", (input, param) =>
+            {
+                var lines = input.Split(LineSeparators, StringSplitOptions.None);
+                return string.Join("\n", lines.OrderBy(x => rnd.Next()).ToArray());
             }));
 
             List.Add(new Algorithm("Order", "Scramble within words", false, "Text to scramble within words", "", (input, param) =>

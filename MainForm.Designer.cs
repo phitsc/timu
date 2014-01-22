@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.manipulationsTreeView = new System.Windows.Forms.TreeView();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.algorithmsTreeView = new System.Windows.Forms.TreeView();
+            this.filterTextBox = new System.Windows.Forms.TextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -53,6 +55,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -77,7 +80,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.manipulationsTreeView);
+            this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel6);
             // 
             // splitContainer1.Panel2
             // 
@@ -85,16 +88,42 @@
             this.splitContainer1.Size = new System.Drawing.Size(996, 585);
             this.splitContainer1.SplitterDistance = 331;
             this.splitContainer1.TabIndex = 0;
+            this.splitContainer1.TabStop = false;
             // 
-            // manipulationsTreeView
+            // tableLayoutPanel6
             // 
-            this.manipulationsTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.manipulationsTreeView.HideSelection = false;
-            this.manipulationsTreeView.Location = new System.Drawing.Point(0, 0);
-            this.manipulationsTreeView.Name = "manipulationsTreeView";
-            this.manipulationsTreeView.Size = new System.Drawing.Size(331, 585);
-            this.manipulationsTreeView.TabIndex = 0;
-            this.manipulationsTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.manipulationsTreeView_AfterSelect);
+            this.tableLayoutPanel6.ColumnCount = 1;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel6.Controls.Add(this.algorithmsTreeView, 0, 1);
+            this.tableLayoutPanel6.Controls.Add(this.filterTextBox, 0, 0);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 2;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(331, 585);
+            this.tableLayoutPanel6.TabIndex = 10;
+            // 
+            // algorithmsTreeView
+            // 
+            this.algorithmsTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.algorithmsTreeView.HideSelection = false;
+            this.algorithmsTreeView.Location = new System.Drawing.Point(3, 23);
+            this.algorithmsTreeView.Name = "algorithmsTreeView";
+            this.algorithmsTreeView.Size = new System.Drawing.Size(325, 559);
+            this.algorithmsTreeView.TabIndex = 1;
+            this.algorithmsTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.manipulationsTreeView_AfterSelect);
+            // 
+            // filterTextBox
+            // 
+            this.filterTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filterTextBox.Location = new System.Drawing.Point(3, 3);
+            this.filterTextBox.Name = "filterTextBox";
+            this.filterTextBox.Size = new System.Drawing.Size(325, 20);
+            this.filterTextBox.TabIndex = 0;
+            this.filterTextBox.TextChanged += new System.EventHandler(this.filterTextBox_TextChanged);
             // 
             // splitContainer2
             // 
@@ -113,6 +142,7 @@
             this.splitContainer2.Size = new System.Drawing.Size(661, 585);
             this.splitContainer2.SplitterDistance = 316;
             this.splitContainer2.TabIndex = 0;
+            this.splitContainer2.TabStop = false;
             // 
             // splitContainer3
             // 
@@ -131,6 +161,7 @@
             this.splitContainer3.Size = new System.Drawing.Size(661, 316);
             this.splitContainer3.SplitterDistance = 251;
             this.splitContainer3.TabIndex = 1;
+            this.splitContainer3.TabStop = false;
             // 
             // tableLayoutPanel1
             // 
@@ -156,6 +187,7 @@
             this.inputStatusTextBox.ReadOnly = true;
             this.inputStatusTextBox.Size = new System.Drawing.Size(655, 20);
             this.inputStatusTextBox.TabIndex = 1;
+            this.inputStatusTextBox.TabStop = false;
             // 
             // tableLayoutPanel3
             // 
@@ -182,6 +214,7 @@
             this.buttonPasteToInput.Name = "buttonPasteToInput";
             this.buttonPasteToInput.Size = new System.Drawing.Size(38, 38);
             this.buttonPasteToInput.TabIndex = 0;
+            this.buttonPasteToInput.TabStop = false;
             this.buttonPasteToInput.UseVisualStyleBackColor = true;
             this.buttonPasteToInput.Click += new System.EventHandler(this.buttonPasteToInput_Click);
             // 
@@ -199,7 +232,7 @@
             this.inputTextBox.Location = new System.Drawing.Point(3, 23);
             this.inputTextBox.Name = "inputTextBox";
             this.inputTextBox.Size = new System.Drawing.Size(601, 192);
-            this.inputTextBox.TabIndex = 0;
+            this.inputTextBox.TabIndex = 1;
             this.inputTextBox.Text = "";
             this.inputTextBox.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
             // 
@@ -211,7 +244,8 @@
             this.inputHintTextBox.Name = "inputHintTextBox";
             this.inputHintTextBox.ReadOnly = true;
             this.inputHintTextBox.Size = new System.Drawing.Size(601, 20);
-            this.inputHintTextBox.TabIndex = 2;
+            this.inputHintTextBox.TabIndex = 0;
+            this.inputHintTextBox.TabStop = false;
             // 
             // tableLayoutPanel5
             // 
@@ -234,7 +268,7 @@
             this.paramTextBox.Location = new System.Drawing.Point(3, 23);
             this.paramTextBox.Name = "paramTextBox";
             this.paramTextBox.Size = new System.Drawing.Size(655, 35);
-            this.paramTextBox.TabIndex = 0;
+            this.paramTextBox.TabIndex = 1;
             this.paramTextBox.Text = "";
             this.paramTextBox.TextChanged += new System.EventHandler(this.paramTextBox_TextChanged);
             // 
@@ -246,7 +280,8 @@
             this.paramHintTextBox.Name = "paramHintTextBox";
             this.paramHintTextBox.ReadOnly = true;
             this.paramHintTextBox.Size = new System.Drawing.Size(655, 20);
-            this.paramHintTextBox.TabIndex = 1;
+            this.paramHintTextBox.TabIndex = 0;
+            this.paramHintTextBox.TabStop = false;
             // 
             // tableLayoutPanel2
             // 
@@ -270,7 +305,8 @@
             this.outputStatusTextBox.Location = new System.Drawing.Point(3, 244);
             this.outputStatusTextBox.Name = "outputStatusTextBox";
             this.outputStatusTextBox.Size = new System.Drawing.Size(655, 20);
-            this.outputStatusTextBox.TabIndex = 1;
+            this.outputStatusTextBox.TabIndex = 0;
+            this.outputStatusTextBox.TabStop = false;
             // 
             // tableLayoutPanel4
             // 
@@ -294,7 +330,7 @@
             this.outputTextBox.Name = "outputTextBox";
             this.outputTextBox.ReadOnly = true;
             this.outputTextBox.Size = new System.Drawing.Size(601, 229);
-            this.outputTextBox.TabIndex = 0;
+            this.outputTextBox.TabIndex = 1;
             this.outputTextBox.Text = "";
             this.outputTextBox.TextChanged += new System.EventHandler(this.outputTextBox_TextChanged);
             // 
@@ -315,6 +351,7 @@
             this.buttonCopyOutputToInput.Name = "buttonCopyOutputToInput";
             this.buttonCopyOutputToInput.Size = new System.Drawing.Size(38, 38);
             this.buttonCopyOutputToInput.TabIndex = 0;
+            this.buttonCopyOutputToInput.TabStop = false;
             this.buttonCopyOutputToInput.UseVisualStyleBackColor = true;
             this.buttonCopyOutputToInput.Click += new System.EventHandler(this.buttonCopyOutputToInput_Click);
             // 
@@ -325,6 +362,7 @@
             this.buttonCopyOutputToClipboard.Name = "buttonCopyOutputToClipboard";
             this.buttonCopyOutputToClipboard.Size = new System.Drawing.Size(38, 38);
             this.buttonCopyOutputToClipboard.TabIndex = 1;
+            this.buttonCopyOutputToClipboard.TabStop = false;
             this.buttonCopyOutputToClipboard.UseVisualStyleBackColor = true;
             this.buttonCopyOutputToClipboard.Click += new System.EventHandler(this.buttonCopyOutputToClipboard_Click);
             // 
@@ -341,6 +379,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
@@ -366,7 +406,7 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TreeView manipulationsTreeView;
+        private System.Windows.Forms.TreeView algorithmsTreeView;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.RichTextBox inputTextBox;
         private System.Windows.Forms.RichTextBox outputTextBox;
@@ -386,6 +426,8 @@
         private System.Windows.Forms.TextBox inputHintTextBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TextBox paramHintTextBox;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.TextBox filterTextBox;
     }
 }
 

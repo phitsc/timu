@@ -1,6 +1,8 @@
 ﻿namespace TextManipulationUtility
 {
     using System;
+    using System.Globalization;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
     public partial class MainForm : Form
@@ -12,22 +14,41 @@
         {
             InitializeComponent();
 
+            NativeMethods.SetCueText(this.filterTextBox, "Filter (Alt + D)");
+
+            UpdateAlgorithmsTreeView();
+        }
+
+        private void UpdateAlgorithmsTreeView()
+        {
+            this.algorithmsTreeView.Nodes.Clear();
+
             foreach (var algorithm in this.algorithms.List)
             {
-                var nodes = this.manipulationsTreeView.Nodes.Find(algorithm.Group, false);
-                var groupNode = nodes.Length == 0 ? this.manipulationsTreeView.Nodes.Add(algorithm.Group, algorithm.Group) : nodes[0];
-                
-                var node = (algorithm.Group == algorithm.Name) ? groupNode : groupNode.Nodes.Add(algorithm.Name);
-                
-                node.Tag = algorithm;
+                if (this.filterTextBox.Text.Length == 0 || CultureInfo.CurrentCulture.CompareInfo.IndexOf(algorithm.Name, this.filterTextBox.Text, CompareOptions.IgnoreCase) >= 0)
+                {
+                    var nodes = this.algorithmsTreeView.Nodes.Find(algorithm.Group, false);
+                    var groupNode = nodes.Length == 0 ? this.algorithmsTreeView.Nodes.Add(algorithm.Group, algorithm.Group) : nodes[0];
+
+                    var node = (algorithm.Group == algorithm.Name) ? groupNode : groupNode.Nodes.Add(algorithm.Name);
+
+                    node.Tag = algorithm;
+                }
             }
 
-            this.manipulationsTreeView.Sort();
+            this.algorithmsTreeView.Sort();
+            this.algorithmsTreeView.ExpandAll();
+
+            if (this.algorithmsTreeView.Nodes.Count > 0 && this.algorithmsTreeView.Nodes[0].Nodes.Count > 0)
+            {
+                this.algorithmsTreeView.SelectedNode = this.algorithmsTreeView.Nodes[0].Nodes[0];
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.inputTextBox.Text = Clipboard.GetText();
+            this.inputTextBox.Select();
         }
 
         private void inputTextBox_TextChanged(object sender, EventArgs e)
@@ -112,13 +133,32 @@
             this.inputTextBox.Text = this.outputTextBox.Text;
         }
 
-        //protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        //{
-        //    if (keyData == (Keys.F1))
-        //    {
-        //        return true;
-        //    }
-        //    return base.ProcessCmdKey(ref msg, keyData);
-        //}
+        private void filterTextBox_TextChanged(object sender, EventArgs e)
+        {
+            UpdateAlgorithmsTreeView();
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.Alt | Keys.D:
+                    this.filterTextBox.Focus();
+                    this.filterTextBox.SelectAll();
+                    break;
+
+                case Keys.Escape:
+                    if (this.filterTextBox.Focused)
+                    {
+                        this.filterTextBox.Clear();
+                    }
+                    break;
+
+                default:
+                    return base.ProcessCmdKey(ref msg, keyData);
+            }
+
+            return true;
+        }
     }
 }

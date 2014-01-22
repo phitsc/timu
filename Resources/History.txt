@@ -1,5 +1,7 @@
 === Version history ===
 
+http://www.donationcoder.com/forum/index.php?topic=36544
+
 0.5 - 18. Jan 2014
 * Input field and parameter field now show a hint right above the respective field
 * Added

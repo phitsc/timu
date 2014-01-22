@@ -37,10 +37,12 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.inputStatusTextBox = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonPasteToInput = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.inputTextBox = new System.Windows.Forms.RichTextBox();
             this.inputHintTextBox = new System.Windows.Forms.TextBox();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.buttonOpenFile = new System.Windows.Forms.Button();
+            this.buttonPasteToInput = new System.Windows.Forms.Button();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.paramTextBox = new System.Windows.Forms.RichTextBox();
             this.paramHintTextBox = new System.Windows.Forms.TextBox();
@@ -51,6 +53,7 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonCopyOutputToInput = new System.Windows.Forms.Button();
             this.buttonCopyOutputToClipboard = new System.Windows.Forms.Button();
+            this.buttonSaveOutput = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -66,6 +69,7 @@
             this.splitContainer3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -194,29 +198,19 @@
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            this.tableLayoutPanel3.Controls.Add(this.buttonPasteToInput, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.flowLayoutPanel1, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.inputTextBox, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.inputHintTextBox, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.flowLayoutPanel3, 1, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(655, 218);
             this.tableLayoutPanel3.TabIndex = 2;
-            // 
-            // buttonPasteToInput
-            // 
-            this.buttonPasteToInput.Image = global::TextManipulationUtility.Properties.Resources.editpaste;
-            this.buttonPasteToInput.Location = new System.Drawing.Point(610, 23);
-            this.buttonPasteToInput.Name = "buttonPasteToInput";
-            this.buttonPasteToInput.Size = new System.Drawing.Size(38, 38);
-            this.buttonPasteToInput.TabIndex = 0;
-            this.buttonPasteToInput.TabStop = false;
-            this.buttonPasteToInput.UseVisualStyleBackColor = true;
-            this.buttonPasteToInput.Click += new System.EventHandler(this.buttonPasteToInput_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -246,6 +240,37 @@
             this.inputHintTextBox.Size = new System.Drawing.Size(601, 20);
             this.inputHintTextBox.TabIndex = 0;
             this.inputHintTextBox.TabStop = false;
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Controls.Add(this.buttonPasteToInput);
+            this.flowLayoutPanel3.Controls.Add(this.buttonOpenFile);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(610, 23);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(42, 100);
+            this.flowLayoutPanel3.TabIndex = 2;
+            // 
+            // buttonOpenFile
+            // 
+            this.buttonOpenFile.Image = global::TextManipulationUtility.Properties.Resources.open1;
+            this.buttonOpenFile.Location = new System.Drawing.Point(3, 47);
+            this.buttonOpenFile.Name = "buttonOpenFile";
+            this.buttonOpenFile.Size = new System.Drawing.Size(38, 38);
+            this.buttonOpenFile.TabIndex = 1;
+            this.buttonOpenFile.TabStop = false;
+            this.buttonOpenFile.UseVisualStyleBackColor = true;
+            this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
+            // 
+            // buttonPasteToInput
+            // 
+            this.buttonPasteToInput.Image = global::TextManipulationUtility.Properties.Resources.editpaste;
+            this.buttonPasteToInput.Location = new System.Drawing.Point(3, 3);
+            this.buttonPasteToInput.Name = "buttonPasteToInput";
+            this.buttonPasteToInput.Size = new System.Drawing.Size(38, 38);
+            this.buttonPasteToInput.TabIndex = 0;
+            this.buttonPasteToInput.TabStop = false;
+            this.buttonPasteToInput.UseVisualStyleBackColor = true;
+            this.buttonPasteToInput.Click += new System.EventHandler(this.buttonPasteToInput_Click);
             // 
             // tableLayoutPanel5
             // 
@@ -338,6 +363,7 @@
             // 
             this.flowLayoutPanel2.Controls.Add(this.buttonCopyOutputToInput);
             this.flowLayoutPanel2.Controls.Add(this.buttonCopyOutputToClipboard);
+            this.flowLayoutPanel2.Controls.Add(this.buttonSaveOutput);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(610, 3);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
@@ -366,6 +392,17 @@
             this.buttonCopyOutputToClipboard.UseVisualStyleBackColor = true;
             this.buttonCopyOutputToClipboard.Click += new System.EventHandler(this.buttonCopyOutputToClipboard_Click);
             // 
+            // buttonSaveOutput
+            // 
+            this.buttonSaveOutput.Image = global::TextManipulationUtility.Properties.Resources.save_as1;
+            this.buttonSaveOutput.Location = new System.Drawing.Point(3, 91);
+            this.buttonSaveOutput.Name = "buttonSaveOutput";
+            this.buttonSaveOutput.Size = new System.Drawing.Size(38, 38);
+            this.buttonSaveOutput.TabIndex = 2;
+            this.buttonSaveOutput.TabStop = false;
+            this.buttonSaveOutput.UseVisualStyleBackColor = true;
+            this.buttonSaveOutput.Click += new System.EventHandler(this.buttonSaveOutput_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -393,6 +430,7 @@
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.flowLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -428,6 +466,9 @@
         private System.Windows.Forms.TextBox paramHintTextBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.TextBox filterTextBox;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private System.Windows.Forms.Button buttonSaveOutput;
+        private System.Windows.Forms.Button buttonOpenFile;
     }
 }
 

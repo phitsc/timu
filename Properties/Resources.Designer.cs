@@ -93,17 +93,66 @@ namespace TextManipulationUtility.Properties {
         /// <summary>
         ///   Looks up a localized string similar to === Version history ===
         ///
-        ///0.3 - 14. Dec. 2013
-        ///* Added sort lines
-        ///* List/Split now splits by words instead of by characters (use , to delimit individual words)
-        ///* Added some buttons for clipboard operations and to copy output back to input
+        ///http://www.donationcoder.com/forum/index.php?topic=36544
         ///
-        ///0.2 - 5. Dec. 2013
-        ///* Added to/from Leet.
+        ///0.5 - 18. Jan 2014
+        ///* Input field and parameter field now show a hint right above the respective field
+        ///* Added
+        ///  * Order - Reverse lines
+        ///  * Order - Scramble lines
+        ///
+        ///0.4 - 17. Jan 2014
+        ///* Parameter field is now disabled if it doesn&apos;t apply
+        ///* Added
+        ///  * List - Remove empty lines
+        ///  * List - Append
+        ///  * List - Prepend
+        ///* Preparation to display hints on Input and Parameter fields
+        ///  (currently, F1 toggles a tooltip if a [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string History {
             get {
                 return ResourceManager.GetString("History", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap open {
+            get {
+                object obj = ResourceManager.GetObject("open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap open1 {
+            get {
+                object obj = ResourceManager.GetObject("open1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap save_as {
+            get {
+                object obj = ResourceManager.GetObject("save-as", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap save_as1 {
+            get {
+                object obj = ResourceManager.GetObject("save-as1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

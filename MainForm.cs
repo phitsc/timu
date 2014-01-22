@@ -2,6 +2,7 @@
 {
     using System;
     using System.Globalization;
+    using System.IO;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
@@ -17,6 +18,8 @@
             NativeMethods.SetCueText(this.filterTextBox, "Filter (Alt + D)");
 
             UpdateAlgorithmsTreeView();
+
+            this.algorithmsTreeView.SelectedNode = this.algorithmsTreeView.Nodes[0];
         }
 
         private void UpdateAlgorithmsTreeView()
@@ -118,6 +121,47 @@
             this.outputStatusTextBox.Text = string.Format("{0} characters, {1} words, {2} lines.", counts.Item1, counts.Item2, counts.Item3);
         }
 
+        private void OpenFile()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    this.inputTextBox.Text = File.ReadAllText(openFileDialog.FileName);
+                    this.inputTextBox.Focus();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Opening file failed.\n" + e.Message);
+                }
+            }
+        }
+
+        private void SaveFile()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            saveFileDialog.FilterIndex = 1;
+            saveFileDialog.RestoreDirectory = true;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    File.WriteAllText(saveFileDialog.FileName, this.outputTextBox.Text);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Saving file failed.\n" + e.Message);
+                }
+            }
+        }
+
         private void buttonPasteToInput_Click(object sender, EventArgs e)
         {
             this.inputTextBox.Text = Clipboard.GetText();
@@ -131,6 +175,16 @@
         private void buttonCopyOutputToInput_Click(object sender, EventArgs e)
         {
             this.inputTextBox.Text = this.outputTextBox.Text;
+        }
+
+        private void buttonOpenFile_Click(object sender, EventArgs e)
+        {
+            OpenFile();
+        }
+
+        private void buttonSaveOutput_Click(object sender, EventArgs e)
+        {
+            SaveFile();
         }
 
         private void filterTextBox_TextChanged(object sender, EventArgs e)
@@ -152,6 +206,18 @@
                     {
                         this.filterTextBox.Clear();
                     }
+                    break;
+
+                case Keys.Control | Keys.O:
+                    this.OpenFile();
+                    break;
+
+                case Keys.Control | Keys.Q:
+                    this.Close();
+                    break;
+
+                case Keys.Control | Keys.S:
+                    this.SaveFile();
                     break;
 
                 default:

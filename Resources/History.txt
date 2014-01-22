@@ -1,6 +1,19 @@
+=== Keyboard shortcuts ===
+
+Alt + D  : focus filter box
+ESC      : clear filter box (when focused)
+Ctrl + O : open file
+Cltr + Q : quit application
+Ctrl + S : save file
+
 === Version history ===
 
 http://www.donationcoder.com/forum/index.php?topic=36544
+
+0.6 - 22. Jan 2014
+* Added filter for text manipulation tree
+* Improved keyboard usage
+* Added file open and save
 
 0.5 - 18. Jan 2014
 * Input field and parameter field now show a hint right above the respective field

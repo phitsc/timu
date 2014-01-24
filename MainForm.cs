@@ -1,6 +1,7 @@
 ﻿namespace TextManipulationUtility
 {
     using System;
+    using System.Diagnostics;
     using System.Globalization;
     using System.IO;
     using System.Runtime.InteropServices;
@@ -10,10 +11,15 @@
     {
         private Algorithms algorithms = new Algorithms();
         private Algorithm selectedAlgorithm;
+        private bool ignoreCase = false;
+        private bool reverseOutputDirection = false;
 
         public MainForm()
         {
             InitializeComponent();
+            
+            UpdateIgnoreCaseButton();
+            UpdateReverseOutputButton();
 
             NativeMethods.SetCueText(this.filterTextBox, "Filter (Alt + D)");
 
@@ -89,7 +95,7 @@
             {
                 try
                 {
-                    var result = this.selectedAlgorithm.Apply(this.inputTextBox.Text, this.paramTextBox.Text);
+                    var result = this.selectedAlgorithm.Apply(this.inputTextBox.Text, this.paramTextBox.Text, this.ignoreCase, this.reverseOutputDirection);
 
                     if (result.StartsWith(@"{\rtf"))
                     {
@@ -192,6 +198,49 @@
             UpdateAlgorithmsTreeView();
         }
 
+        private void outputTextBox_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            Process.Start(e.LinkText);
+        }
+ 
+        private void UpdateIgnoreCaseButton()
+        {
+            this.ignoreCaseButton.Image = this.ignoreCase ? Properties.Resources.ignore_case_on : Properties.Resources.ignore_case_off;
+        }
+
+        private void UpdateReverseOutputButton()
+        {
+            this.reverseOutputButton.Image = this.reverseOutputDirection ? Properties.Resources.direction_up : Properties.Resources.direction_down;
+        }
+
+        private void ignoreCaseButton_Click(object sender, EventArgs e)
+        {
+            ToggleIgnoreCase();
+        }
+
+        private void ToggleIgnoreCase()
+        {
+            this.ignoreCase = !this.ignoreCase;
+
+            UpdateIgnoreCaseButton();
+
+            UpdateOutput();
+        }
+
+        private void reverseOutputButton_Click(object sender, EventArgs e)
+        {
+            ToggleOutputDirection();
+        }
+
+        private void ToggleOutputDirection()
+        {
+            this.reverseOutputDirection = !this.reverseOutputDirection;
+
+            UpdateReverseOutputButton();
+
+            UpdateOutput();
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             switch (keyData)
@@ -206,6 +255,22 @@
                     {
                         this.filterTextBox.Clear();
                     }
+                    break;
+
+                case Keys.Alt | Keys.I:
+                    this.inputTextBox.Focus();
+                    break;
+
+                case Keys.Alt | Keys.O:
+                    this.outputTextBox.Focus();
+                    break;
+
+                case Keys.Control | Keys.I:
+                    this.ToggleIgnoreCase();
+                    break;
+
+                case Keys.Control | Keys.R:
+                    this.ToggleOutputDirection();
                     break;
 
                 case Keys.Control | Keys.O:
@@ -226,5 +291,5 @@
 
             return true;
         }
-    }
+   }
 }

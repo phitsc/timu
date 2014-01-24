@@ -4,9 +4,9 @@
 
     internal class Algorithm
     {
-        private Func<string, string, string> apply;
+        private Func<string, string, bool, bool, string> apply;
 
-        public Algorithm(string group, string name, bool requiresParam, string inputHint, string paramHint, Func<string, string, string> apply)
+        public Algorithm(string group, string name, bool requiresParam, string inputHint, string paramHint, Func<string, string, bool, bool, string> apply)
         {
             this.Group = group;
             this.Name = name;
@@ -26,9 +26,9 @@
         
         public string ParamHint { get; private set; }
 
-        public string Apply(string input, string param)
+        public string Apply(string input, string param, bool ignoreCase, bool reverseOutputDirection)
         {
-            return this.apply(input, param);
+            return this.apply(input, param, ignoreCase, reverseOutputDirection);
         }
     }
 }

@@ -63,6 +63,26 @@ namespace TextManipulationUtility.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap direction_down {
+            get {
+                object obj = ResourceManager.GetObject("direction-down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap direction_up {
+            get {
+                object obj = ResourceManager.GetObject("direction-up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap editcopy {
             get {
                 object obj = ResourceManager.GetObject("editcopy", resourceCulture);
@@ -91,28 +111,51 @@ namespace TextManipulationUtility.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to === Version history ===
+        ///   Looks up a localized string similar to === Keyboard shortcuts ===
+        ///
+        ///Alt + D  : focus filter box
+        ///ESC      : clear filter box (when focused)
+        ///Ctrl + O : open file
+        ///Cltr + Q : quit application
+        ///Ctrl + S : save file
+        ///
+        ///=== Version history ===
         ///
         ///http://www.donationcoder.com/forum/index.php?topic=36544
+        ///
+        ///0.6 - 22. Jan 2014
+        ///* Added filter for text manipulation tree
+        ///* Improved keyboard usage
+        ///* Added file open and save
         ///
         ///0.5 - 18. Jan 2014
         ///* Input field and parameter field now show a hint right above the respective field
         ///* Added
-        ///  * Order - Reverse lines
-        ///  * Order - Scramble lines
-        ///
-        ///0.4 - 17. Jan 2014
-        ///* Parameter field is now disabled if it doesn&apos;t apply
-        ///* Added
-        ///  * List - Remove empty lines
-        ///  * List - Append
-        ///  * List - Prepend
-        ///* Preparation to display hints on Input and Parameter fields
-        ///  (currently, F1 toggles a tooltip if a [rest of string was truncated]&quot;;.
+        ///  * Order - Re [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string History {
             get {
                 return ResourceManager.GetString("History", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ignore_case_off {
+            get {
+                object obj = ResourceManager.GetObject("ignore-case-off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ignore_case_on {
+            get {
+                object obj = ResourceManager.GetObject("ignore-case-on", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

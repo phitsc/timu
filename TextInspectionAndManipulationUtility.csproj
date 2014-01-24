@@ -105,6 +105,18 @@
   <ItemGroup>
     <None Include="Resources\save-as.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ignore-case-off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ignore-case-on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\direction-up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\direction-down.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,14 +1,21 @@
+http://www.donationcoder.com/forum/index.php?topic=36544
+
 === Keyboard shortcuts ===
 
-Alt + D  : focus filter box
-ESC      : clear filter box (when focused)
-Ctrl + O : open file
-Cltr + Q : quit application
-Ctrl + S : save file
-
+Alt + I : focus input box                          Ctrl + O : open file
+Alt + O : focus output box                         Ctrl + S : save file
+Alt + D : focus filter box                         Ctrl + Q : quit application
+ESC     : clear filter box (when focused)          Ctrl + I : toggle 'ignore case'
+                                                   Ctrl + R : toggle 'reverse output'
 === Version history ===
 
-http://www.donationcoder.com/forum/index.php?topic=36544
+0.7 - 24. Jan 2014
+* Streamlined layout
+* Added ignore case toggle button (and Ctrl + I)
+* Added reverse output toggle button (and Ctrl + R)
+* Some additional keyboard shortcuts
+* Using monospace font for input/output boxes
+* Clicking the link in About now opens a web browser
 
 0.6 - 22. Jan 2014
 * Added filter for text manipulation tree

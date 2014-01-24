@@ -34,26 +34,27 @@
             this.filterTextBox = new System.Windows.Forms.TextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.inputTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.inputStatusTextBox = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.inputTextBox = new System.Windows.Forms.RichTextBox();
             this.inputHintTextBox = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.buttonOpenFile = new System.Windows.Forms.Button();
             this.buttonPasteToInput = new System.Windows.Forms.Button();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonOpenFile = new System.Windows.Forms.Button();
+            this.parameterTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.paramTextBox = new System.Windows.Forms.RichTextBox();
             this.paramHintTextBox = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
+            this.ignoreCaseButton = new System.Windows.Forms.Button();
+            this.outputTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.outputStatusTextBox = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.outputTextBox = new System.Windows.Forms.RichTextBox();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonCopyOutputToInput = new System.Windows.Forms.Button();
             this.buttonCopyOutputToClipboard = new System.Windows.Forms.Button();
             this.buttonSaveOutput = new System.Windows.Forms.Button();
+            this.reverseOutputButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -67,12 +68,11 @@
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
+            this.inputTableLayoutPanel.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
+            this.parameterTableLayoutPanel.SuspendLayout();
+            this.flowLayoutPanel4.SuspendLayout();
+            this.outputTableLayoutPanel.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,8 +89,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(996, 585);
-            this.splitContainer1.SplitterDistance = 331;
+            this.splitContainer1.Size = new System.Drawing.Size(1095, 627);
+            this.splitContainer1.SplitterDistance = 362;
             this.splitContainer1.TabIndex = 0;
             this.splitContainer1.TabStop = false;
             // 
@@ -107,7 +107,7 @@
             this.tableLayoutPanel6.RowCount = 2;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(331, 585);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(362, 627);
             this.tableLayoutPanel6.TabIndex = 10;
             // 
             // algorithmsTreeView
@@ -116,7 +116,7 @@
             this.algorithmsTreeView.HideSelection = false;
             this.algorithmsTreeView.Location = new System.Drawing.Point(3, 23);
             this.algorithmsTreeView.Name = "algorithmsTreeView";
-            this.algorithmsTreeView.Size = new System.Drawing.Size(325, 559);
+            this.algorithmsTreeView.Size = new System.Drawing.Size(356, 601);
             this.algorithmsTreeView.TabIndex = 1;
             this.algorithmsTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.manipulationsTreeView_AfterSelect);
             // 
@@ -125,7 +125,7 @@
             this.filterTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filterTextBox.Location = new System.Drawing.Point(3, 3);
             this.filterTextBox.Name = "filterTextBox";
-            this.filterTextBox.Size = new System.Drawing.Size(325, 20);
+            this.filterTextBox.Size = new System.Drawing.Size(356, 20);
             this.filterTextBox.TabIndex = 0;
             this.filterTextBox.TextChanged += new System.EventHandler(this.filterTextBox_TextChanged);
             // 
@@ -142,9 +142,9 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel2);
-            this.splitContainer2.Size = new System.Drawing.Size(661, 585);
-            this.splitContainer2.SplitterDistance = 316;
+            this.splitContainer2.Panel2.Controls.Add(this.outputTableLayoutPanel);
+            this.splitContainer2.Size = new System.Drawing.Size(729, 627);
+            this.splitContainer2.SplitterDistance = 351;
             this.splitContainer2.TabIndex = 0;
             this.splitContainer2.TabStop = false;
             // 
@@ -157,75 +157,61 @@
             // 
             // splitContainer3.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.tableLayoutPanel1);
+            this.splitContainer3.Panel1.Controls.Add(this.inputTableLayoutPanel);
             // 
             // splitContainer3.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.tableLayoutPanel5);
-            this.splitContainer3.Size = new System.Drawing.Size(661, 316);
-            this.splitContainer3.SplitterDistance = 251;
+            this.splitContainer3.Panel2.Controls.Add(this.parameterTableLayoutPanel);
+            this.splitContainer3.Size = new System.Drawing.Size(729, 351);
+            this.splitContainer3.SplitterDistance = 271;
             this.splitContainer3.TabIndex = 1;
             this.splitContainer3.TabStop = false;
             // 
-            // tableLayoutPanel1
+            // inputTableLayoutPanel
             // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.inputStatusTextBox, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(661, 251);
-            this.tableLayoutPanel1.TabIndex = 1;
+            this.inputTableLayoutPanel.ColumnCount = 2;
+            this.inputTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.inputTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
+            this.inputTableLayoutPanel.Controls.Add(this.inputStatusTextBox, 0, 2);
+            this.inputTableLayoutPanel.Controls.Add(this.flowLayoutPanel1, 1, 0);
+            this.inputTableLayoutPanel.Controls.Add(this.inputTextBox, 0, 1);
+            this.inputTableLayoutPanel.Controls.Add(this.inputHintTextBox, 0, 0);
+            this.inputTableLayoutPanel.Controls.Add(this.flowLayoutPanel3, 1, 1);
+            this.inputTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inputTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.inputTableLayoutPanel.Name = "inputTableLayoutPanel";
+            this.inputTableLayoutPanel.RowCount = 3;
+            this.inputTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.inputTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.inputTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.inputTableLayoutPanel.Size = new System.Drawing.Size(729, 271);
+            this.inputTableLayoutPanel.TabIndex = 2;
             // 
             // inputStatusTextBox
             // 
-            this.inputStatusTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.inputStatusTextBox.Location = new System.Drawing.Point(3, 228);
+            this.inputStatusTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inputStatusTextBox.Location = new System.Drawing.Point(3, 250);
             this.inputStatusTextBox.Name = "inputStatusTextBox";
             this.inputStatusTextBox.ReadOnly = true;
-            this.inputStatusTextBox.Size = new System.Drawing.Size(655, 20);
+            this.inputStatusTextBox.Size = new System.Drawing.Size(675, 20);
             this.inputStatusTextBox.TabIndex = 1;
             this.inputStatusTextBox.TabStop = false;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            this.tableLayoutPanel3.Controls.Add(this.flowLayoutPanel1, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.inputTextBox, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.inputHintTextBox, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.flowLayoutPanel3, 1, 1);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(655, 218);
-            this.tableLayoutPanel3.TabIndex = 2;
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(610, 3);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(684, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(42, 14);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(42, 18);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // inputTextBox
             // 
             this.inputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.inputTextBox.Location = new System.Drawing.Point(3, 23);
+            this.inputTextBox.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.inputTextBox.Location = new System.Drawing.Point(3, 27);
             this.inputTextBox.Name = "inputTextBox";
-            this.inputTextBox.Size = new System.Drawing.Size(601, 192);
+            this.inputTextBox.Size = new System.Drawing.Size(675, 217);
             this.inputTextBox.TabIndex = 1;
             this.inputTextBox.Text = "";
             this.inputTextBox.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
@@ -237,7 +223,7 @@
             this.inputHintTextBox.Location = new System.Drawing.Point(3, 3);
             this.inputHintTextBox.Name = "inputHintTextBox";
             this.inputHintTextBox.ReadOnly = true;
-            this.inputHintTextBox.Size = new System.Drawing.Size(601, 20);
+            this.inputHintTextBox.Size = new System.Drawing.Size(675, 20);
             this.inputHintTextBox.TabIndex = 0;
             this.inputHintTextBox.TabStop = false;
             // 
@@ -245,21 +231,10 @@
             // 
             this.flowLayoutPanel3.Controls.Add(this.buttonPasteToInput);
             this.flowLayoutPanel3.Controls.Add(this.buttonOpenFile);
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(610, 23);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(684, 27);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(42, 100);
             this.flowLayoutPanel3.TabIndex = 2;
-            // 
-            // buttonOpenFile
-            // 
-            this.buttonOpenFile.Image = global::TextManipulationUtility.Properties.Resources.open1;
-            this.buttonOpenFile.Location = new System.Drawing.Point(3, 47);
-            this.buttonOpenFile.Name = "buttonOpenFile";
-            this.buttonOpenFile.Size = new System.Drawing.Size(38, 38);
-            this.buttonOpenFile.TabIndex = 1;
-            this.buttonOpenFile.TabStop = false;
-            this.buttonOpenFile.UseVisualStyleBackColor = true;
-            this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
             // 
             // buttonPasteToInput
             // 
@@ -272,27 +247,40 @@
             this.buttonPasteToInput.UseVisualStyleBackColor = true;
             this.buttonPasteToInput.Click += new System.EventHandler(this.buttonPasteToInput_Click);
             // 
-            // tableLayoutPanel5
+            // buttonOpenFile
             // 
-            this.tableLayoutPanel5.ColumnCount = 1;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.paramTextBox, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.paramHintTextBox, 0, 0);
-            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 2;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(661, 61);
-            this.tableLayoutPanel5.TabIndex = 1;
+            this.buttonOpenFile.Image = global::TextManipulationUtility.Properties.Resources.open1;
+            this.buttonOpenFile.Location = new System.Drawing.Point(3, 47);
+            this.buttonOpenFile.Name = "buttonOpenFile";
+            this.buttonOpenFile.Size = new System.Drawing.Size(38, 38);
+            this.buttonOpenFile.TabIndex = 1;
+            this.buttonOpenFile.TabStop = false;
+            this.buttonOpenFile.UseVisualStyleBackColor = true;
+            this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
+            // 
+            // parameterTableLayoutPanel
+            // 
+            this.parameterTableLayoutPanel.ColumnCount = 2;
+            this.parameterTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.parameterTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
+            this.parameterTableLayoutPanel.Controls.Add(this.paramTextBox, 0, 1);
+            this.parameterTableLayoutPanel.Controls.Add(this.paramHintTextBox, 0, 0);
+            this.parameterTableLayoutPanel.Controls.Add(this.flowLayoutPanel4, 1, 1);
+            this.parameterTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.parameterTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.parameterTableLayoutPanel.Name = "parameterTableLayoutPanel";
+            this.parameterTableLayoutPanel.RowCount = 2;
+            this.parameterTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.parameterTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.parameterTableLayoutPanel.Size = new System.Drawing.Size(729, 76);
+            this.parameterTableLayoutPanel.TabIndex = 1;
             // 
             // paramTextBox
             // 
             this.paramTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.paramTextBox.Location = new System.Drawing.Point(3, 23);
+            this.paramTextBox.Location = new System.Drawing.Point(3, 27);
             this.paramTextBox.Name = "paramTextBox";
-            this.paramTextBox.Size = new System.Drawing.Size(655, 35);
+            this.paramTextBox.Size = new System.Drawing.Size(675, 46);
             this.paramTextBox.TabIndex = 1;
             this.paramTextBox.Text = "";
             this.paramTextBox.TextChanged += new System.EventHandler(this.paramTextBox_TextChanged);
@@ -304,59 +292,68 @@
             this.paramHintTextBox.Location = new System.Drawing.Point(3, 3);
             this.paramHintTextBox.Name = "paramHintTextBox";
             this.paramHintTextBox.ReadOnly = true;
-            this.paramHintTextBox.Size = new System.Drawing.Size(655, 20);
+            this.paramHintTextBox.Size = new System.Drawing.Size(675, 20);
             this.paramHintTextBox.TabIndex = 0;
             this.paramHintTextBox.TabStop = false;
             // 
-            // tableLayoutPanel2
+            // flowLayoutPanel4
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Controls.Add(this.outputStatusTextBox, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel4, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(661, 265);
-            this.tableLayoutPanel2.TabIndex = 1;
+            this.flowLayoutPanel4.Controls.Add(this.ignoreCaseButton);
+            this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(684, 27);
+            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(42, 46);
+            this.flowLayoutPanel4.TabIndex = 2;
+            // 
+            // ignoreCaseButton
+            // 
+            this.ignoreCaseButton.Image = global::TextManipulationUtility.Properties.Resources.ignore_case_on;
+            this.ignoreCaseButton.Location = new System.Drawing.Point(3, 3);
+            this.ignoreCaseButton.Name = "ignoreCaseButton";
+            this.ignoreCaseButton.Size = new System.Drawing.Size(38, 38);
+            this.ignoreCaseButton.TabIndex = 3;
+            this.ignoreCaseButton.TabStop = false;
+            this.ignoreCaseButton.UseVisualStyleBackColor = true;
+            this.ignoreCaseButton.Click += new System.EventHandler(this.ignoreCaseButton_Click);
+            // 
+            // outputTableLayoutPanel
+            // 
+            this.outputTableLayoutPanel.ColumnCount = 2;
+            this.outputTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.outputTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
+            this.outputTableLayoutPanel.Controls.Add(this.outputStatusTextBox, 0, 1);
+            this.outputTableLayoutPanel.Controls.Add(this.outputTextBox, 0, 0);
+            this.outputTableLayoutPanel.Controls.Add(this.flowLayoutPanel2, 1, 0);
+            this.outputTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.outputTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.outputTableLayoutPanel.Name = "outputTableLayoutPanel";
+            this.outputTableLayoutPanel.RowCount = 2;
+            this.outputTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.outputTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.outputTableLayoutPanel.Size = new System.Drawing.Size(729, 272);
+            this.outputTableLayoutPanel.TabIndex = 2;
             // 
             // outputStatusTextBox
             // 
             this.outputStatusTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.outputStatusTextBox.Location = new System.Drawing.Point(3, 244);
+            this.outputStatusTextBox.Location = new System.Drawing.Point(3, 251);
             this.outputStatusTextBox.Name = "outputStatusTextBox";
-            this.outputStatusTextBox.Size = new System.Drawing.Size(655, 20);
+            this.outputStatusTextBox.ReadOnly = true;
+            this.outputStatusTextBox.Size = new System.Drawing.Size(675, 20);
             this.outputStatusTextBox.TabIndex = 0;
             this.outputStatusTextBox.TabStop = false;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            this.tableLayoutPanel4.Controls.Add(this.outputTextBox, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.flowLayoutPanel2, 1, 0);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 1;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(655, 235);
-            this.tableLayoutPanel4.TabIndex = 2;
             // 
             // outputTextBox
             // 
             this.outputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.outputTextBox.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.outputTextBox.Location = new System.Drawing.Point(3, 3);
             this.outputTextBox.Name = "outputTextBox";
             this.outputTextBox.ReadOnly = true;
-            this.outputTextBox.Size = new System.Drawing.Size(601, 229);
+            this.outputTextBox.Size = new System.Drawing.Size(675, 242);
             this.outputTextBox.TabIndex = 1;
             this.outputTextBox.Text = "";
+            this.outputTextBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.outputTextBox_LinkClicked);
             this.outputTextBox.TextChanged += new System.EventHandler(this.outputTextBox_TextChanged);
             // 
             // flowLayoutPanel2
@@ -364,10 +361,11 @@
             this.flowLayoutPanel2.Controls.Add(this.buttonCopyOutputToInput);
             this.flowLayoutPanel2.Controls.Add(this.buttonCopyOutputToClipboard);
             this.flowLayoutPanel2.Controls.Add(this.buttonSaveOutput);
+            this.flowLayoutPanel2.Controls.Add(this.reverseOutputButton);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(610, 3);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(684, 3);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(42, 229);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(42, 242);
             this.flowLayoutPanel2.TabIndex = 1;
             // 
             // buttonCopyOutputToInput
@@ -403,11 +401,22 @@
             this.buttonSaveOutput.UseVisualStyleBackColor = true;
             this.buttonSaveOutput.Click += new System.EventHandler(this.buttonSaveOutput_Click);
             // 
+            // reverseOutputButton
+            // 
+            this.reverseOutputButton.Image = global::TextManipulationUtility.Properties.Resources.direction_down;
+            this.reverseOutputButton.Location = new System.Drawing.Point(3, 135);
+            this.reverseOutputButton.Name = "reverseOutputButton";
+            this.reverseOutputButton.Size = new System.Drawing.Size(38, 38);
+            this.reverseOutputButton.TabIndex = 3;
+            this.reverseOutputButton.TabStop = false;
+            this.reverseOutputButton.UseVisualStyleBackColor = true;
+            this.reverseOutputButton.Click += new System.EventHandler(this.reverseOutputButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(996, 585);
+            this.ClientSize = new System.Drawing.Size(1095, 627);
             this.Controls.Add(this.splitContainer1);
             this.Name = "MainForm";
             this.Text = "Text Inspection & Manipulation Utility";
@@ -426,16 +435,14 @@
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
+            this.inputTableLayoutPanel.ResumeLayout(false);
+            this.inputTableLayoutPanel.PerformLayout();
             this.flowLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.tableLayoutPanel4.ResumeLayout(false);
+            this.parameterTableLayoutPanel.ResumeLayout(false);
+            this.parameterTableLayoutPanel.PerformLayout();
+            this.flowLayoutPanel4.ResumeLayout(false);
+            this.outputTableLayoutPanel.ResumeLayout(false);
+            this.outputTableLayoutPanel.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -450,25 +457,26 @@
         private System.Windows.Forms.RichTextBox outputTextBox;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.RichTextBox paramTextBox;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox inputStatusTextBox;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TextBox outputStatusTextBox;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel inputTableLayoutPanel;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.TableLayoutPanel outputTableLayoutPanel;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Button buttonCopyOutputToInput;
         private System.Windows.Forms.Button buttonCopyOutputToClipboard;
         private System.Windows.Forms.Button buttonPasteToInput;
         private System.Windows.Forms.TextBox inputHintTextBox;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.TableLayoutPanel parameterTableLayoutPanel;
         private System.Windows.Forms.TextBox paramHintTextBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.TextBox filterTextBox;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.Button buttonSaveOutput;
         private System.Windows.Forms.Button buttonOpenFile;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
+        private System.Windows.Forms.Button ignoreCaseButton;
+        private System.Windows.Forms.Button reverseOutputButton;
     }
 }
 

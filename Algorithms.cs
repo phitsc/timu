@@ -15,8 +15,8 @@
         private TextInfo textInfo = System.Globalization.CultureInfo.CurrentCulture.TextInfo;
         private Random rnd = new Random();
 
-        private char[] WordSeparators = new char[] { ' ', '\r', '\n' };
-        private char[] LineSeparators = new char[] { '\r', '\n' };
+        private static char[] WordSeparators = new char[] { ' ', '\t', '\r', '\n' };
+        private static char[] LineSeparators = new char[] { '\r', '\n' };
 
         public List<Algorithm> List { get; private set; }
 
@@ -73,9 +73,9 @@
 
             List.Add(new Algorithm("Order", "Reverse words", false, "Text to reverse words", "", (input, param, ignoreCase, reverseOutputDirection) =>
             {
-                var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
-                Array.Reverse(words);
-                return string.Join(" ", words);
+                string reversedInput = Reverse(input);
+
+                return ForEachWord(reversedInput, (s) => Reverse(s));
             }));
 
             List.Add(new Algorithm("Order", "Reverse lines", false, "Text to reverse lines", "", (input, param, ignoreCase, reverseOutputDirection) =>
@@ -105,20 +105,7 @@
 
             List.Add(new Algorithm("Order", "Scramble within words", false, "Text to scramble within words", "", (input, param, ignoreCase, reverseOutputDirection) =>
             {
-                var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
-
-                for (var index = 0; index < words.Length; ++index)
-                {
-                    var word = words[index];
-
-                    if (word.Length > 2)
-                    {
-                        var chars = word.ToCharArray(1, word.Length - 2);
-                        words[index] = word[0] + new String(chars.OrderBy(x => rnd.Next()).ToArray()) + word[word.Length - 1];
-                    }
-                }
-
-                return string.Join(" ", words);
+                return ForEachWord(input, (s) => s.Length > 2 ? s[0] + new String(s.ToCharArray(1, s.Length - 2).OrderBy(x => rnd.Next()).ToArray()) + s[s.Length - 1] : s);
             }));
 
             List.Add(new Algorithm("Checksum", "MD5", false, "Text to calculate checksum", "", (input, param, ignoreCase, reverseOutputDirection) =>
@@ -283,6 +270,44 @@
                 return string.Join("\n", reverseOutputDirection ? query.Reverse() : query);
             }));
 
+        }
+
+        private static string ForEachWord(string input, Func<string, string> func)
+        {
+            var output = new StringBuilder();
+            var word = new StringBuilder();
+
+            for (var index = 0; index < input.Length; ++index)
+            {
+                if (WordSeparators.Contains(input[index]))
+                {
+                    output.Append(func(word.ToString()));
+                    output.Append(input[index]);
+                    word.Clear();
+                }
+                else
+                {
+                    word.Append(input[index]);
+                }
+            }
+
+            output.Append(func(word.ToString()));
+
+            return output.ToString();
+        }
+
+        private static string Reverse(string input)
+        {
+            if (string.IsNullOrEmpty(input) || input.Length == 1) 
+            {
+                return input;
+            }
+
+            char[] chars = input.ToCharArray();
+
+            Array.Reverse(chars);
+
+            return new string(chars);
         }
 
         private static string CountAlphabet(string input, bool caseInsensitive, bool reverseOutputDirection)

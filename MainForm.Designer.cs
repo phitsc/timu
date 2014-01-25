@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.algorithmsTreeView = new System.Windows.Forms.TreeView();
@@ -55,6 +56,7 @@
             this.buttonCopyOutputToClipboard = new System.Windows.Forms.Button();
             this.buttonSaveOutput = new System.Windows.Forms.Button();
             this.reverseOutputButton = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -244,6 +246,7 @@
             this.buttonPasteToInput.Size = new System.Drawing.Size(38, 38);
             this.buttonPasteToInput.TabIndex = 0;
             this.buttonPasteToInput.TabStop = false;
+            this.toolTip.SetToolTip(this.buttonPasteToInput, "Paste clipboard to Input box");
             this.buttonPasteToInput.UseVisualStyleBackColor = true;
             this.buttonPasteToInput.Click += new System.EventHandler(this.buttonPasteToInput_Click);
             // 
@@ -255,6 +258,7 @@
             this.buttonOpenFile.Size = new System.Drawing.Size(38, 38);
             this.buttonOpenFile.TabIndex = 1;
             this.buttonOpenFile.TabStop = false;
+            this.toolTip.SetToolTip(this.buttonOpenFile, "Open file");
             this.buttonOpenFile.UseVisualStyleBackColor = true;
             this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
             // 
@@ -313,6 +317,7 @@
             this.ignoreCaseButton.Size = new System.Drawing.Size(38, 38);
             this.ignoreCaseButton.TabIndex = 3;
             this.ignoreCaseButton.TabStop = false;
+            this.toolTip.SetToolTip(this.ignoreCaseButton, "Toggle \'Ignore Case\'");
             this.ignoreCaseButton.UseVisualStyleBackColor = true;
             this.ignoreCaseButton.Click += new System.EventHandler(this.ignoreCaseButton_Click);
             // 
@@ -376,6 +381,7 @@
             this.buttonCopyOutputToInput.Size = new System.Drawing.Size(38, 38);
             this.buttonCopyOutputToInput.TabIndex = 0;
             this.buttonCopyOutputToInput.TabStop = false;
+            this.toolTip.SetToolTip(this.buttonCopyOutputToInput, "Copy output to input");
             this.buttonCopyOutputToInput.UseVisualStyleBackColor = true;
             this.buttonCopyOutputToInput.Click += new System.EventHandler(this.buttonCopyOutputToInput_Click);
             // 
@@ -387,6 +393,7 @@
             this.buttonCopyOutputToClipboard.Size = new System.Drawing.Size(38, 38);
             this.buttonCopyOutputToClipboard.TabIndex = 1;
             this.buttonCopyOutputToClipboard.TabStop = false;
+            this.toolTip.SetToolTip(this.buttonCopyOutputToClipboard, "Copy output to clipboard");
             this.buttonCopyOutputToClipboard.UseVisualStyleBackColor = true;
             this.buttonCopyOutputToClipboard.Click += new System.EventHandler(this.buttonCopyOutputToClipboard_Click);
             // 
@@ -398,6 +405,7 @@
             this.buttonSaveOutput.Size = new System.Drawing.Size(38, 38);
             this.buttonSaveOutput.TabIndex = 2;
             this.buttonSaveOutput.TabStop = false;
+            this.toolTip.SetToolTip(this.buttonSaveOutput, "Save output to file");
             this.buttonSaveOutput.UseVisualStyleBackColor = true;
             this.buttonSaveOutput.Click += new System.EventHandler(this.buttonSaveOutput_Click);
             // 
@@ -409,6 +417,7 @@
             this.reverseOutputButton.Size = new System.Drawing.Size(38, 38);
             this.reverseOutputButton.TabIndex = 3;
             this.reverseOutputButton.TabStop = false;
+            this.toolTip.SetToolTip(this.reverseOutputButton, "Toggle \'Output Direction\'");
             this.reverseOutputButton.UseVisualStyleBackColor = true;
             this.reverseOutputButton.Click += new System.EventHandler(this.reverseOutputButton_Click);
             // 
@@ -477,6 +486,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
         private System.Windows.Forms.Button ignoreCaseButton;
         private System.Windows.Forms.Button reverseOutputButton;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
 

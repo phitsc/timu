@@ -9,6 +9,11 @@ ESC     : clear filter box (when focused)          Ctrl + I : toggle 'ignore cas
                                                    Ctrl + R : toggle 'reverse output'
 === Version history ===
 
+0.8 - 25. Jan 2014
+* Fixed reverse words, scramble within words layout
+* Added prepend line number
+* Added tooltips to the buttons
+
 0.7 - 24. Jan 2014
 * Streamlined layout
 * Added ignore case toggle button (and Ctrl + I)

@@ -228,6 +228,23 @@
                 return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
             }));
 
+            List.Add(new Algorithm("List", "Prepend line number", true, "List of text lines", "Line number format string (use # for line number)", (input, param, ignoreCase, reverseOutputDirection) =>
+            {
+                var lines = input.Split(LineSeparators, StringSplitOptions.None);
+
+                var match = Regex.Match(param, "[#]+");
+                var lineNumberFormat = match.Success ? ("d" + match.Value.Length.ToString()) : "";
+
+                for (var index = 0; index < lines.Length; ++index)
+                {
+                    var lineNumber = lineNumberFormat.Length > 0 ? param.Replace(match.Value, (index + 1).ToString(lineNumberFormat)) : param;
+
+                    lines[index] = lineNumber + lines[index];
+                }
+
+                return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
+            }));
+
             List.Add(new Algorithm("List", "Remove empty lines", false, "List of text lines", "", (input, param, ignoreCase, reverseOutputDirection) =>
             {
                 var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);

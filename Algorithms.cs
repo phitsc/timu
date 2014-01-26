@@ -17,6 +17,7 @@
 
         private static char[] WordSeparators = new char[] { ' ', '\t', '\r', '\n' };
         private static char[] LineSeparators = new char[] { '\r', '\n' };
+        private static char[] WhitespaceChars = new char[] { ' ', '\t' };
 
         public List<Algorithm> List { get; private set; }
 
@@ -131,14 +132,28 @@
             List.Add(new Algorithm("Sort", "Lines", false, "Text to sort", "", (input, param, ignoreCase, reverseOutputDirection) =>
             {
                 var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
-                Array.Sort(lines);
+                Array.Sort(lines, (l, r) => string.Compare(l, r, ignoreCase));
+                return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
+            }));
+
+            List.Add(new Algorithm("Sort", "Lines (ordinal)", false, "Text to sort", "", (input, param, ignoreCase, reverseOutputDirection) =>
+            {
+                var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
+                Array.Sort(lines, ignoreCase ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
                 return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
             }));
 
             List.Add(new Algorithm("Sort", "Words", false, "Text to sort", "", (input, param, ignoreCase, reverseOutputDirection) =>
             {
                 var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
-                Array.Sort(words);
+                Array.Sort(words, (l, r) => string.Compare(l, r, ignoreCase));
+                return string.Join(" ", reverseOutputDirection ? words.Reverse() : words);
+            }));
+
+            List.Add(new Algorithm("Sort", "Words (ordinal)", false, "Text to sort", "", (input, param, ignoreCase, reverseOutputDirection) =>
+            {
+                var words = input.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
+                Array.Sort(words, ignoreCase ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
                 return string.Join(" ", reverseOutputDirection ? words.Reverse() : words);
             }));
 
@@ -248,6 +263,48 @@
             List.Add(new Algorithm("List", "Remove empty lines", false, "List of text lines", "", (input, param, ignoreCase, reverseOutputDirection) =>
             {
                 var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
+
+                return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
+            }));
+
+            List.Add(new Algorithm("List", "Trim", true, "List of text lines", "Characters to remove on both ends", (input, param, ignoreCase, reverseOutputDirection) =>
+            {
+                var trimChars = param.Length > 0 ? param.ToCharArray() : WhitespaceChars;
+
+                var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
+
+                for (var index = 0; index < lines.Length; ++ index)
+                {
+                    lines[index] = lines[index].Trim(trimChars);
+                }
+
+                return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
+            }));
+
+            List.Add(new Algorithm("List", "Trim left", true, "List of text lines", "Characters to remove at beginning of line", (input, param, ignoreCase, reverseOutputDirection) =>
+            {
+                var trimChars = param.Length > 0 ? param.ToCharArray() : WhitespaceChars;
+
+                var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
+
+                for (var index = 0; index < lines.Length; ++index)
+                {
+                    lines[index] = lines[index].TrimStart(trimChars);
+                }
+
+                return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
+            }));
+
+            List.Add(new Algorithm("List", "Trim right", true, "List of text lines", "Characters to remove at endof line", (input, param, ignoreCase, reverseOutputDirection) =>
+            {
+                var trimChars = param.Length > 0 ? param.ToCharArray() : WhitespaceChars;
+
+                var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
+
+                for (var index = 0; index < lines.Length; ++index)
+                {
+                    lines[index] = lines[index].TrimEnd(trimChars);
+                }
 
                 return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
             }));

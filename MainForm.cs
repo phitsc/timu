@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.IO;
     using System.Runtime.InteropServices;
+    using System.Text.RegularExpressions;
     using System.Windows.Forms;
 
     public partial class MainForm : Form
@@ -13,6 +14,7 @@
         private Algorithm selectedAlgorithm;
         private bool ignoreCase = false;
         private bool reverseOutputDirection = false;
+        private int? highlights = null;
 
         public MainForm()
         {
@@ -144,10 +146,12 @@
 
                     if (result.StartsWith(@"{\rtf"))
                     {
+                        this.highlights = Regex.Matches(result, @"\\highlight2" ).Count;
                         this.outputTextBox.Rtf = result;
                     }
                     else
                     {
+                        this.highlights = null;
                         this.outputTextBox.Text = result;
                     }
                 }
@@ -169,7 +173,7 @@
         {
             var counts = FreeFunctions.Count(this.outputTextBox.Text);
 
-            this.outputStatusTextBox.Text = string.Format("{0} characters, {1} words, {2} lines.", counts.Item1, counts.Item2, counts.Item3);
+            this.outputStatusTextBox.Text = string.Format("{0} characters, {1} words, {2} lines.", counts.Item1, counts.Item2, counts.Item3) + (this.highlights != null ? string.Format(" {0} highlights.", this.highlights) : "");
         }
 
         private void OpenFile()

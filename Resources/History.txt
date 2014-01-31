@@ -9,6 +9,12 @@ ESC     : clear filter box (when focused)          Ctrl + I : toggle 'ignore cas
                                                    Ctrl + R : toggle 'reverse output'
 === Version history ===
 
+0.9 - 31. Jan 2014
+* Save window size/position and state of 'ignore case' and 'reverse output direction'
+* Print number of highlights (matches) in status bar (e.g. in search)
+* Highlight filter text
+* Added Web - Remove tags
+
 0.8 - 25. Jan 2014
 * Fixed reverse words, scramble within words layout
 * Added prepend line number

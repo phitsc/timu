@@ -337,6 +337,12 @@
                 return Leet.FromLeet(input);
             }));
 
+            List.Add(new Algorithm("Web", "Remove Tags", false, "Text to remove tags", "", (input, param, ignoreCase, reverseOutputDirection) =>
+            {
+                var regex = new Regex(@"<[^>]*>");
+                return regex.Replace(input, "");
+            }));
+
             List.Add(new Algorithm("List", "Filter", true, "List of text lines", "Filter term", (input, param, ignoreCase, reverseOutputDirection) =>
             {
                 var elements = input.Split(new char[] { '\n' });

@@ -17,7 +17,9 @@
         public MainForm()
         {
             InitializeComponent();
-            
+
+            LoadSettings();
+
             UpdateIgnoreCaseButton();
             UpdateReverseOutputButton();
 
@@ -54,10 +56,53 @@
             }
         }
 
+        private void LoadSettings()
+        {
+            this.ignoreCase = Properties.Settings.Default.IgnoreCase;
+            this.reverseOutputDirection = Properties.Settings.Default.ReverseOutput;
+        }
+
+        private void SaveSettings()
+        {
+            Properties.Settings.Default.IgnoreCase = this.ignoreCase;
+            Properties.Settings.Default.ReverseOutput = this.reverseOutputDirection;
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
+            var storedLocation = Properties.Settings.Default.MainFormLocation;
+            if (storedLocation != null && (storedLocation.X != -1 && storedLocation.Y != -1))
+            {
+                this.Location = Properties.Settings.Default.MainFormLocation;
+            }
+
+            var storedSize = Properties.Settings.Default.MainFormSize;
+            if (storedSize != null && (storedSize.Width != -1 && storedSize.Height != -1))
+            {
+                this.Size = Properties.Settings.Default.MainFormSize;
+            }
+
             this.inputTextBox.Text = Clipboard.GetText();
             this.inputTextBox.Select();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.MainFormLocation = this.Location;
+
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                Properties.Settings.Default.MainFormSize = this.Size;
+            }
+            else
+            {
+                Properties.Settings.Default.MainFormSize = this.RestoreBounds.Size;
+            }
+
+            SaveSettings();
+
+            // Save settings
+            Properties.Settings.Default.Save();
         }
 
         private void inputTextBox_TextChanged(object sender, EventArgs e)

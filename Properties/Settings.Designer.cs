@@ -22,5 +22,53 @@ namespace TextManipulationUtility.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1, -1")]
+        public global::System.Drawing.Point MainFormLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["MainFormLocation"]));
+            }
+            set {
+                this["MainFormLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1, -1")]
+        public global::System.Drawing.Size MainFormSize {
+            get {
+                return ((global::System.Drawing.Size)(this["MainFormSize"]));
+            }
+            set {
+                this["MainFormSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IgnoreCase {
+            get {
+                return ((bool)(this["IgnoreCase"]));
+            }
+            set {
+                this["IgnoreCase"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ReverseOutput {
+            get {
+                return ((bool)(this["ReverseOutput"]));
+            }
+            set {
+                this["ReverseOutput"] = value;
+            }
+        }
     }
 }

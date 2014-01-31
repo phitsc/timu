@@ -24,7 +24,7 @@
 
         public void AppendBold(string s)
         {
-            sb.AppendFormat("{{\\b {0} }}", s);
+            sb.AppendFormat("{{\\b {0} }}\\b0", s);
         }
 
         public override string ToString()

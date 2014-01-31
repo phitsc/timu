@@ -345,9 +345,18 @@
 
             List.Add(new Algorithm("List", "Filter", true, "List of text lines", "Filter term", (input, param, ignoreCase, reverseOutputDirection) =>
             {
+                if (param.Length == 0) return input;
+
                 var elements = input.Split(new char[] { '\n' });
                 var query = from line in elements where (CultureInfo.CurrentCulture.CompareInfo.IndexOf(line, param, ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None) >= 0) select line;
-                return string.Join("\n", reverseOutputDirection ? query.Reverse() : query);
+
+                var regex = new Regex(param, ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None);
+                var rtf = regex.Replace(string.Join("\n", reverseOutputDirection ? query.Reverse() : query), string.Format("{{\\highlight2 {0}}}", param));
+                
+                var sb = new RtfStringBuilder();
+                sb.Append(rtf);
+
+                return sb.ToString();
             }));
 
         }

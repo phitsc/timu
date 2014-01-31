@@ -14,7 +14,7 @@
         private Algorithm selectedAlgorithm;
         private bool ignoreCase = false;
         private bool reverseOutputDirection = false;
-        private int? highlights = null;
+        private int highlights = 0;
 
         public MainForm()
         {
@@ -151,7 +151,7 @@
                     }
                     else
                     {
-                        this.highlights = null;
+                        this.highlights = 0;
                         this.outputTextBox.Text = result;
                     }
                 }
@@ -173,7 +173,7 @@
         {
             var counts = FreeFunctions.Count(this.outputTextBox.Text);
 
-            this.outputStatusTextBox.Text = string.Format("{0} characters, {1} words, {2} lines.", counts.Item1, counts.Item2, counts.Item3) + (this.highlights != null ? string.Format(" {0} highlights.", this.highlights) : "");
+            this.outputStatusTextBox.Text = string.Format("{0} characters, {1} words, {2} lines.", counts.Item1, counts.Item2, counts.Item3) + (this.highlights != 0 ? string.Format(" {0} highlights.", this.highlights) : "");
         }
 
         private void OpenFile()

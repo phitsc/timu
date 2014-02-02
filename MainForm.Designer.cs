@@ -44,8 +44,6 @@
             this.buttonPasteToInput = new System.Windows.Forms.Button();
             this.buttonOpenFile = new System.Windows.Forms.Button();
             this.parameterTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.paramTextBox = new System.Windows.Forms.RichTextBox();
-            this.paramHintTextBox = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.ignoreCaseButton = new System.Windows.Forms.Button();
             this.outputTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -57,6 +55,7 @@
             this.buttonSaveOutput = new System.Windows.Forms.Button();
             this.reverseOutputButton = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.parametersTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -258,7 +257,7 @@
             this.buttonOpenFile.Size = new System.Drawing.Size(38, 38);
             this.buttonOpenFile.TabIndex = 1;
             this.buttonOpenFile.TabStop = false;
-            this.toolTip.SetToolTip(this.buttonOpenFile, "Open file");
+            this.toolTip.SetToolTip(this.buttonOpenFile, "Open file (Ctrl + O)");
             this.buttonOpenFile.UseVisualStyleBackColor = true;
             this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
             // 
@@ -267,46 +266,24 @@
             this.parameterTableLayoutPanel.ColumnCount = 2;
             this.parameterTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.parameterTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            this.parameterTableLayoutPanel.Controls.Add(this.paramTextBox, 0, 1);
-            this.parameterTableLayoutPanel.Controls.Add(this.paramHintTextBox, 0, 0);
-            this.parameterTableLayoutPanel.Controls.Add(this.flowLayoutPanel4, 1, 1);
+            this.parameterTableLayoutPanel.Controls.Add(this.flowLayoutPanel4, 1, 0);
+            this.parameterTableLayoutPanel.Controls.Add(this.parametersTableLayoutPanel, 0, 0);
             this.parameterTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.parameterTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.parameterTableLayoutPanel.Name = "parameterTableLayoutPanel";
-            this.parameterTableLayoutPanel.RowCount = 2;
-            this.parameterTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.parameterTableLayoutPanel.RowCount = 1;
             this.parameterTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.parameterTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.parameterTableLayoutPanel.Size = new System.Drawing.Size(729, 76);
             this.parameterTableLayoutPanel.TabIndex = 1;
-            // 
-            // paramTextBox
-            // 
-            this.paramTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.paramTextBox.Location = new System.Drawing.Point(3, 27);
-            this.paramTextBox.Name = "paramTextBox";
-            this.paramTextBox.Size = new System.Drawing.Size(675, 46);
-            this.paramTextBox.TabIndex = 1;
-            this.paramTextBox.Text = "";
-            this.paramTextBox.TextChanged += new System.EventHandler(this.paramTextBox_TextChanged);
-            // 
-            // paramHintTextBox
-            // 
-            this.paramHintTextBox.BackColor = System.Drawing.Color.LightYellow;
-            this.paramHintTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.paramHintTextBox.Location = new System.Drawing.Point(3, 3);
-            this.paramHintTextBox.Name = "paramHintTextBox";
-            this.paramHintTextBox.ReadOnly = true;
-            this.paramHintTextBox.Size = new System.Drawing.Size(675, 20);
-            this.paramHintTextBox.TabIndex = 0;
-            this.paramHintTextBox.TabStop = false;
             // 
             // flowLayoutPanel4
             // 
             this.flowLayoutPanel4.Controls.Add(this.ignoreCaseButton);
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(684, 27);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(684, 3);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(42, 46);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(42, 70);
             this.flowLayoutPanel4.TabIndex = 2;
             // 
             // ignoreCaseButton
@@ -317,7 +294,7 @@
             this.ignoreCaseButton.Size = new System.Drawing.Size(38, 38);
             this.ignoreCaseButton.TabIndex = 3;
             this.ignoreCaseButton.TabStop = false;
-            this.toolTip.SetToolTip(this.ignoreCaseButton, "Toggle \'Ignore Case\'");
+            this.toolTip.SetToolTip(this.ignoreCaseButton, "Toggle \'Ignore Case\' (Ctrl + I)");
             this.ignoreCaseButton.UseVisualStyleBackColor = true;
             this.ignoreCaseButton.Click += new System.EventHandler(this.ignoreCaseButton_Click);
             // 
@@ -405,7 +382,7 @@
             this.buttonSaveOutput.Size = new System.Drawing.Size(38, 38);
             this.buttonSaveOutput.TabIndex = 2;
             this.buttonSaveOutput.TabStop = false;
-            this.toolTip.SetToolTip(this.buttonSaveOutput, "Save output to file");
+            this.toolTip.SetToolTip(this.buttonSaveOutput, "Save output to file (Ctrl + S)");
             this.buttonSaveOutput.UseVisualStyleBackColor = true;
             this.buttonSaveOutput.Click += new System.EventHandler(this.buttonSaveOutput_Click);
             // 
@@ -417,9 +394,23 @@
             this.reverseOutputButton.Size = new System.Drawing.Size(38, 38);
             this.reverseOutputButton.TabIndex = 3;
             this.reverseOutputButton.TabStop = false;
-            this.toolTip.SetToolTip(this.reverseOutputButton, "Toggle \'Output Direction\'");
+            this.toolTip.SetToolTip(this.reverseOutputButton, "Toggle \'Output Direction\' (Ctrl + R)");
             this.reverseOutputButton.UseVisualStyleBackColor = true;
             this.reverseOutputButton.Click += new System.EventHandler(this.reverseOutputButton_Click);
+            // 
+            // parametersTableLayoutPanel
+            // 
+            this.parametersTableLayoutPanel.ColumnCount = 1;
+            this.parametersTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.parametersTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.parametersTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.parametersTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.parametersTableLayoutPanel.Name = "parametersTableLayoutPanel";
+            this.parametersTableLayoutPanel.RowCount = 2;
+            this.parametersTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.parametersTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.parametersTableLayoutPanel.Size = new System.Drawing.Size(681, 76);
+            this.parametersTableLayoutPanel.TabIndex = 3;
             // 
             // MainForm
             // 
@@ -449,7 +440,6 @@
             this.inputTableLayoutPanel.PerformLayout();
             this.flowLayoutPanel3.ResumeLayout(false);
             this.parameterTableLayoutPanel.ResumeLayout(false);
-            this.parameterTableLayoutPanel.PerformLayout();
             this.flowLayoutPanel4.ResumeLayout(false);
             this.outputTableLayoutPanel.ResumeLayout(false);
             this.outputTableLayoutPanel.PerformLayout();
@@ -466,7 +456,6 @@
         private System.Windows.Forms.RichTextBox inputTextBox;
         private System.Windows.Forms.RichTextBox outputTextBox;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private System.Windows.Forms.RichTextBox paramTextBox;
         private System.Windows.Forms.TextBox inputStatusTextBox;
         private System.Windows.Forms.TextBox outputStatusTextBox;
         private System.Windows.Forms.TableLayoutPanel inputTableLayoutPanel;
@@ -478,7 +467,6 @@
         private System.Windows.Forms.Button buttonPasteToInput;
         private System.Windows.Forms.TextBox inputHintTextBox;
         private System.Windows.Forms.TableLayoutPanel parameterTableLayoutPanel;
-        private System.Windows.Forms.TextBox paramHintTextBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.TextBox filterTextBox;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
@@ -488,6 +476,7 @@
         private System.Windows.Forms.Button ignoreCaseButton;
         private System.Windows.Forms.Button reverseOutputButton;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.TableLayoutPanel parametersTableLayoutPanel;
     }
 }
 

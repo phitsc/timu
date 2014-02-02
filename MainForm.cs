@@ -1,6 +1,8 @@
 ﻿namespace TextManipulationUtility
 {
     using System;
+    using System.Collections.Generic;
+    using System.Drawing;
     using System.Diagnostics;
     using System.Globalization;
     using System.IO;
@@ -118,10 +120,20 @@
         {
             var treeView = (TreeView)sender;
             this.selectedAlgorithm = (Algorithm)treeView.SelectedNode.Tag;
-            
-            this.paramTextBox.Enabled = this.selectedAlgorithm != null ? this.selectedAlgorithm.RequiresParam : false;
+
             this.inputHintTextBox.Text = this.selectedAlgorithm != null ? this.selectedAlgorithm.InputHint : "";
-            this.paramHintTextBox.Text = this.selectedAlgorithm != null ? this.selectedAlgorithm.ParamHint : "";
+
+            this.parametersTableLayoutPanel.Controls.Clear();
+
+            this.parametersTableLayoutPanel.RowCount = 2;
+            this.parametersTableLayoutPanel.ColumnCount = this.selectedAlgorithm.ParamHints.Count;
+            for (var index = 0; index < this.parametersTableLayoutPanel.ColumnCount; ++index)
+            {
+                this.parametersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / this.parametersTableLayoutPanel.ColumnCount));
+                this.parametersTableLayoutPanel.Controls.Add(new TextBox() { TabStop = false, BackColor = Color.LightYellow, Text = this.selectedAlgorithm.ParamHints[index], Dock = DockStyle.Fill, ReadOnly = true }, index, 0);
+                this.parametersTableLayoutPanel.Controls.Add(new TextBox() { Dock = DockStyle.Fill }, index, 1);
+                this.parametersTableLayoutPanel.GetControlFromPosition(index, 1).TextChanged += paramTextBox_TextChanged;
+            }
 
             this.UpdateOutput();
         }
@@ -142,16 +154,24 @@
             {
                 try
                 {
-                    var result = this.selectedAlgorithm.Apply(this.inputTextBox.Text, this.paramTextBox.Text, this.ignoreCase, this.reverseOutputDirection);
+                    var parameters = new List<string>();
+                    for (var index = 0; index < this.selectedAlgorithm.ParamHints.Count; ++index)
+                    {
+                        parameters.Add(this.parametersTableLayoutPanel.GetControlFromPosition(index, 1).Text);
+                    }
+
+                    var result = this.selectedAlgorithm.Apply(this.inputTextBox.Text, parameters, this.ignoreCase, this.reverseOutputDirection);
 
                     if (result.StartsWith(@"{\rtf"))
                     {
                         this.highlights = Regex.Matches(result, @"\\highlight2" ).Count;
+                        this.outputTextBox.Clear();
                         this.outputTextBox.Rtf = result;
                     }
                     else
                     {
                         this.highlights = 0;
+                        this.outputTextBox.Clear();
                         this.outputTextBox.Text = result;
                     }
                 }

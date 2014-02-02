@@ -1,18 +1,27 @@
 ﻿namespace TextManipulationUtility
 {
     using System;
+using System.Collections.Generic;
 
     internal class Algorithm
     {
-        private Func<string, string, bool, bool, string> apply;
+        private Func<string /*input*/, List<string> /*parameters*/, bool /*ignoreCase*/, bool /*reverseOutputDirection*/, string /*result*/> apply;
 
-        public Algorithm(string group, string name, bool requiresParam, string inputHint, string paramHint, Func<string, string, bool, bool, string> apply)
+        public Algorithm(string group, string name, string inputHint, Func<string, List<string>, bool, bool, string> apply)
         {
             this.Group = group;
             this.Name = name;
-            this.RequiresParam = requiresParam;
             this.InputHint = inputHint;
-            this.ParamHint = paramHint;
+            this.ParamHints = new List<string>();
+            this.apply = apply;
+        }
+
+        public Algorithm(string group, string name, string inputHint, List<string> paramHints, Func<string, List<string>, bool, bool, string> apply)
+        {
+            this.Group = group;
+            this.Name = name;
+            this.InputHint = inputHint;
+            this.ParamHints = paramHints;
             this.apply = apply;
         }
 
@@ -20,15 +29,13 @@
 
         public string Name { get; private set; }
 
-        public bool RequiresParam { get; private set; }
-
         public string InputHint { get; private set; }
         
-        public string ParamHint { get; private set; }
+        public List<string> ParamHints { get; private set; }
 
-        public string Apply(string input, string param, bool ignoreCase, bool reverseOutputDirection)
+        public string Apply(string input, List<string> parameters, bool ignoreCase, bool reverseOutputDirection)
         {
-            return this.apply(input, param, ignoreCase, reverseOutputDirection);
+            return this.apply(input, parameters, ignoreCase, reverseOutputDirection);
         }
     }
 }

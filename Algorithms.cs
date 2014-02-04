@@ -159,54 +159,37 @@
 
             List.Add(new Algorithm("Search", "Simple", "Text to search", new List<string> { "Search term" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var searchTerm = parameters[0];
-                var finds = new List<int>();
-
-                int pos = CultureInfo.CurrentCulture.CompareInfo.IndexOf(input, searchTerm, ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None);
-                while ((pos != -1) && (pos < input.Length) && !(searchTerm.Length == 0))
-                {
-                    finds.Add(pos);
-
-                    pos = CultureInfo.CurrentCulture.CompareInfo.IndexOf(input, searchTerm, pos + 1, ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None);
-                }
-
-                var sb = new RtfStringBuilder();
-
-                int from = 0;
-                for (int index = 0; index < finds.Count; ++index)
-                {
-                    sb.Append(input.Substring(from, finds[index] - from));
-                    sb.AppendHighlighted(input.Substring(finds[index], searchTerm.Length));
-
-                    from = finds[index] + searchTerm.Length;
-                }
-
-                sb.Append(input.Substring(from));
-
-                return sb.ToString();
+                return SearchAndReplace(input, parameters[0], null, ignoreCase);
             }));
+
+            List.Add(new Algorithm("Search", "Replace Simple", "Text to search", 
+                new List<string> 
+                { 
+                    "Search term",
+                    "Replacement text"
+                }, 
+                (input, parameters, ignoreCase, reverseOutputDirection) =>
+                {
+                    return SearchAndReplace(input, parameters[0], parameters[1], ignoreCase);
+                })
+            );
 
             List.Add(new Algorithm("Search", "Regex", "Text to search", new List<string> { "Search regular expression" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = parameters[0];
-
-                var matches = Regex.Matches(input, param, ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None);
-
-                var sb = new RtfStringBuilder();
-
-                int from = 0;
-                foreach (Match match in matches)
-                {
-                    sb.Append(input.Substring(from, match.Index - from));
-                    sb.AppendHighlighted(input.Substring(match.Index, match.Length));
-
-                    from = match.Index + match.Length;
-                }
-
-                sb.Append(input.Substring(from));
-
-                return sb.ToString();
+                return SearchAndReplaceRegex(input, parameters[0], null, ignoreCase);
             }));
+
+            List.Add(new Algorithm("Search", "Replace Regex", "Text to search", 
+                new List<string> 
+                { 
+                    "Search regular expression",
+                    "Replacement text"
+                },
+                (input, parameters, ignoreCase, reverseOutputDirection) =>
+                {
+                    return SearchAndReplaceRegex(input, parameters[0], parameters[1], ignoreCase);
+                })
+            );
 
             List.Add(new Algorithm("List", "Split", "Text to split", new List<string> { "Comma-separated list of separator strings" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
@@ -299,8 +282,6 @@
 
             List.Add(new Algorithm("List", "Remove empty lines", "List of text lines", (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = parameters[0];
-
                 var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
 
                 return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
@@ -500,6 +481,70 @@
             {
                 return FormatHash(hasher.ComputeHash(System.Text.Encoding.UTF8.GetBytes(input)));
             }
+        }
+
+        private static string SearchAndReplace(string input, string searchTerm, string replacementText, bool ignoreCase)
+        {
+            var finds = new List<int>();
+
+            int pos = CultureInfo.CurrentCulture.CompareInfo.IndexOf(input, searchTerm, ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None);
+            while ((pos != -1) && (pos < input.Length) && !(searchTerm.Length == 0))
+            {
+                finds.Add(pos);
+
+                pos = CultureInfo.CurrentCulture.CompareInfo.IndexOf(input, searchTerm, pos + 1, ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None);
+            }
+
+            var sb = new RtfStringBuilder();
+
+            int from = 0;
+            for (int index = 0; index < finds.Count; ++index)
+            {
+                sb.Append(input.Substring(from, finds[index] - from));
+
+                if (replacementText != null)
+                {
+                    sb.AppendHighlighted(replacementText);
+                }
+                else 
+                {
+                    sb.AppendHighlighted(input.Substring(finds[index], searchTerm.Length));
+                }
+
+                from = finds[index] + searchTerm.Length;
+            }
+
+            sb.Append(input.Substring(from));
+
+            return sb.ToString();
+        }
+
+        private static string SearchAndReplaceRegex(string input, string searchTerm, string replacementText, bool ignoreCase)
+        {
+            var matches = Regex.Matches(input, searchTerm, ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None);
+
+            var sb = new RtfStringBuilder();
+
+            int from = 0;
+            foreach (Match match in matches)
+            {
+                sb.Append(input.Substring(from, match.Index - from));
+
+                if (replacementText != null)
+                {
+                    sb.AppendHighlighted(replacementText);
+                }
+                else
+                {
+                    sb.AppendHighlighted(input.Substring(match.Index, match.Length));
+                }
+
+                from = match.Index + match.Length;
+            }
+
+            sb.Append(input.Substring(from));
+
+            return sb.ToString();
         }
     }
 }

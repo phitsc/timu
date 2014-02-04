@@ -9,6 +9,10 @@ ESC     : clear filter box (when focused)          Ctrl + I : toggle 'ignore cas
                                                    Ctrl + R : toggle 'reverse output'
 === Version history ===
 
+0.10
+* Added Search & Replace
+* Can now specify line number start and increment
+
 0.9 - 31. Jan 2014
 * Save window size/position and state of 'ignore case' and 'reverse output direction'
 * Print number of highlights (matches) in status bar (e.g. in search)

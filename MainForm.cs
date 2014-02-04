@@ -40,7 +40,7 @@
 
             foreach (var algorithm in this.algorithms.List)
             {
-                if (this.filterTextBox.Text.Length == 0 || CultureInfo.CurrentCulture.CompareInfo.IndexOf(algorithm.Name, this.filterTextBox.Text, CompareOptions.IgnoreCase) >= 0)
+                if (this.filterTextBox.Text.Length == 0 || CultureInfo.CurrentCulture.CompareInfo.IndexOf(algorithm.Group + " " + algorithm.Name, this.filterTextBox.Text, CompareOptions.IgnoreCase) >= 0)
                 {
                     var nodes = this.algorithmsTreeView.Nodes.Find(algorithm.Group, false);
                     var groupNode = nodes.Length == 0 ? this.algorithmsTreeView.Nodes.Add(algorithm.Group, algorithm.Group) : nodes[0];
@@ -125,14 +125,17 @@
 
             this.parametersTableLayoutPanel.Controls.Clear();
 
-            this.parametersTableLayoutPanel.RowCount = 2;
-            this.parametersTableLayoutPanel.ColumnCount = this.selectedAlgorithm.ParamHints.Count;
-            for (var index = 0; index < this.parametersTableLayoutPanel.ColumnCount; ++index)
+            if (this.selectedAlgorithm != null)
             {
-                this.parametersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / this.parametersTableLayoutPanel.ColumnCount));
-                this.parametersTableLayoutPanel.Controls.Add(new TextBox() { TabStop = false, BackColor = Color.LightYellow, Text = this.selectedAlgorithm.ParamHints[index], Dock = DockStyle.Fill, ReadOnly = true }, index, 0);
-                this.parametersTableLayoutPanel.Controls.Add(new TextBox() { Dock = DockStyle.Fill }, index, 1);
-                this.parametersTableLayoutPanel.GetControlFromPosition(index, 1).TextChanged += paramTextBox_TextChanged;
+                this.parametersTableLayoutPanel.RowCount = 2;
+                this.parametersTableLayoutPanel.ColumnCount = this.selectedAlgorithm.ParamHints.Count;
+                for (var index = 0; index < this.parametersTableLayoutPanel.ColumnCount; ++index)
+                {
+                    this.parametersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / this.parametersTableLayoutPanel.ColumnCount));
+                    this.parametersTableLayoutPanel.Controls.Add(new TextBox() { TabStop = false, BackColor = Color.LightYellow, Text = this.selectedAlgorithm.ParamHints[index], Dock = DockStyle.Fill, ReadOnly = true }, index, 0);
+                    this.parametersTableLayoutPanel.Controls.Add(new TextBox() { Dock = DockStyle.Fill }, index, 1);
+                    this.parametersTableLayoutPanel.GetControlFromPosition(index, 1).TextChanged += paramTextBox_TextChanged;
+                }
             }
 
             this.UpdateOutput();
@@ -177,9 +180,14 @@
                 }
                 catch (Exception e)
                 {
-                    this.outputTextBox.Text = "Error: " + e.Message;
+                    this.outputTextBox.Text = ReportError(e.Message);
                 }
             }
+        }
+
+        private string ReportError(string text)
+        {
+            return "Error: " + text;
         }
 
         private void UpdateInputStatusTextBox()

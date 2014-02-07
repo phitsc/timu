@@ -191,6 +191,15 @@
                 })
             );
 
+            List.Add(new Algorithm("Search", "Highlight non-ASCII characters", "Text to search for special characters", (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var sb = new RtfStringBuilder();
+
+                sb.Append(Regex.Replace(input, @"([^\u0000-\u007F])", "{{\\highlight2 $1}}", ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None));
+
+                return sb.ToString();
+            }));
+
             List.Add(new Algorithm("List", "Split", "Text to split", new List<string> { "Comma-separated list of separator strings" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 var param = parameters[0];
@@ -333,6 +342,24 @@
                 }
 
                 return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
+            }));
+
+            List.Add(new Algorithm("List", "Remove duplicates", "List of text lines", (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var lines = input.Split(LineSeparators, StringSplitOptions.None);
+                var result = new List<string>();
+                var hashSet = new HashSet<string>();
+
+                for (var index = 0; index < lines.Length; ++index)
+                {
+                    if (!hashSet.Contains(ignoreCase ? lines[index].ToLower() : lines[index]))
+                    {
+                        result.Add(lines[index]);
+                        hashSet.Add(ignoreCase ? lines[index].ToLower() : lines[index]);
+                    }
+                }
+
+                return string.Join("\n", reverseOutputDirection ? result.ToArray().Reverse() : result.ToArray());
             }));
 
             List.Add(new Algorithm("Encryption", "Encrypt", "Text to encrypt", new List<string> { "Password" }, (input, parameters, ignoreCase, reverseOutputDirection) =>

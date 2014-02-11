@@ -9,6 +9,15 @@ ESC     : clear filter box (when focused)          Ctrl + I : toggle 'ignore cas
                                                    Ctrl + R : toggle 'reverse output'
 === Version history ===
 
+0.11
+* Renamed category 'List' to 'Lines'
+* Renamed category 'Search' to 'Search & Replace'
+* Added Search & Replace - highlight non-ascii characters
+* Added Lines - Keep / Remove words at beginning / end of lines (can be used to remove line numbers as well)
+* Added Lines - remove duplicate lines
+* Added Lines - remove extra empty lines
+* Added Lines - delete to tag
+
 0.10
 * Added Search & Replace
 * Can now specify line number start and increment

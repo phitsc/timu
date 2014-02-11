@@ -81,7 +81,7 @@
 
             List.Add(new Algorithm("Order", "Reverse lines", "Text to reverse lines", (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var lines = input.Split(LineSeparators, StringSplitOptions.None);
+                var lines = input.Split(LineSeparators);
                 Array.Reverse(lines);
                 return string.Join("\n", lines);
             }));
@@ -100,7 +100,7 @@
 
             List.Add(new Algorithm("Order", "Scramble lines", "Text to scramble lines", (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var lines = input.Split(LineSeparators, StringSplitOptions.None);
+                var lines = input.Split(LineSeparators);
                 return string.Join("\n", lines.OrderBy(x => rnd.Next()).ToArray());
             }));
 
@@ -157,12 +157,12 @@
                 return string.Join(" ", reverseOutputDirection ? words.Reverse() : words);
             }));
 
-            List.Add(new Algorithm("Search", "Simple", "Text to search", new List<string> { "Search term" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            List.Add(new Algorithm("Search & Replace", "Simple", "Text to search", new List<string> { "Search term" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 return SearchAndReplace(input, parameters[0], null, ignoreCase);
             }));
 
-            List.Add(new Algorithm("Search", "Replace Simple", "Text to search", 
+            List.Add(new Algorithm("Search & Replace", "Replace Simple", "Text to search", 
                 new List<string> 
                 { 
                     "Search term",
@@ -174,12 +174,12 @@
                 })
             );
 
-            List.Add(new Algorithm("Search", "Regex", "Text to search", new List<string> { "Search regular expression" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            List.Add(new Algorithm("Search & Replace", "Regex", "Text to search", new List<string> { "Search regular expression" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 return SearchAndReplaceRegex(input, parameters[0], null, ignoreCase);
             }));
 
-            List.Add(new Algorithm("Search", "Replace Regex", "Text to search", 
+            List.Add(new Algorithm("Search & Replace", "Replace Regex", "Text to search", 
                 new List<string> 
                 { 
                     "Search regular expression",
@@ -191,7 +191,7 @@
                 })
             );
 
-            List.Add(new Algorithm("Search", "Highlight non-ASCII characters", "Text to search for special characters", (input, parameters, ignoreCase, reverseOutputDirection) =>
+            List.Add(new Algorithm("Search & Replace", "Highlight non-ASCII characters", "Text to search for special characters", (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 var sb = new RtfStringBuilder();
 
@@ -200,7 +200,40 @@
                 return sb.ToString();
             }));
 
-            List.Add(new Algorithm("List", "Split", "Text to split", new List<string> { "Comma-separated list of separator strings" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            /*
+            List.Add(new Algorithm("Search & Replace", "Convert tabs to spaces", "Text to replace tabs with spaces", new List<string> { "Number of spaces for each tab" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var param = Math.Max(0, parameters[0].Length > 0 ? Convert.ToInt32(parameters[0]) : 0);
+                int index = 1;
+
+                var sb = new StringBuilder();
+
+                foreach (var character in input)
+                {
+                    if (character == '\t')
+                    {
+                        sb.Append(new string(' ', param - (index % param)));
+                    }
+                    else
+                    {
+                        sb.Append(character);
+                    }
+
+                    ++index;
+                }
+
+                return sb.ToString();
+            }));
+
+            List.Add(new Algorithm("Search & Replace", "Convert spaces to tabs", "Text to replace spaces with tabs", new List<string> { "Number of spaces for each tab" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var result = Regex.Replace(input, new string(' ', Math.Max(0, parameters[0].Length > 0 ? Convert.ToInt32(parameters[0]) : 0)), "\t");
+
+                return result;
+            }));
+            */
+
+            List.Add(new Algorithm("Lines", "Split", "Text to split", new List<string> { "Comma-separated list of separator strings" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 var param = parameters[0];
 
@@ -209,7 +242,7 @@
                 return string.Join("\n", reverseOutputDirection ? elements.Reverse() : elements);
             }));
 
-            List.Add(new Algorithm("List", "Join", "List of text lines", new List<string> { "Separator to put between each joined text element" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            List.Add(new Algorithm("Lines", "Join", "List of text lines", new List<string> { "Separator to put between each joined text element" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 var param = parameters[0];
 
@@ -218,11 +251,11 @@
                 return string.Join(param, reverseOutputDirection ? elements.Reverse() : elements);
             }));
 
-            List.Add(new Algorithm("List", "Append", "List of text lines", new List<string> { "Text to add at each line's end" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            List.Add(new Algorithm("Lines", "Append", "List of text lines", new List<string> { "Text to add at each line's end" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 var param = parameters[0];
 
-                var lines = input.Split(LineSeparators, StringSplitOptions.None);
+                var lines = input.Split(LineSeparators);
 
                 for (var index = 0; index < lines.Length; ++index)
                 {
@@ -232,11 +265,11 @@
                 return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
             }));
 
-            List.Add(new Algorithm("List", "Prepend", "List of text lines", new List<string> { "Text to add at each line's beginning" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            List.Add(new Algorithm("Lines", "Prepend", "List of text lines", new List<string> { "Text to add at each line's beginning" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 var param = parameters[0];
 
-                var lines = input.Split(LineSeparators, StringSplitOptions.None);
+                var lines = input.Split(LineSeparators);
 
                 for (var index = 0; index < lines.Length; ++index)
                 {
@@ -246,7 +279,7 @@
                 return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
             }));
 
-            List.Add(new Algorithm("List", "Prepend line number", "List of text lines", 
+            List.Add(new Algorithm("Lines", "Prepend line number", "List of text lines", 
                 new List<string> 
                 { 
                     "Line number format string (use # for line number)" ,
@@ -257,7 +290,7 @@
                 {
                     var param = parameters[0];
 
-                    var lines = input.Split(LineSeparators, StringSplitOptions.None);
+                    var lines = input.Split(LineSeparators);
 
                     var match = Regex.Match(param, "[#]+");
                     var lineNumberFormat = match.Success ? ("d" + match.Value.Length.ToString()) : "";
@@ -289,14 +322,109 @@
                 })
             );
 
-            List.Add(new Algorithm("List", "Remove empty lines", "List of text lines", (input, parameters, ignoreCase, reverseOutputDirection) =>
+            List.Add(new Algorithm("Lines", "Remove words at beginning", "List of text lines", new List<string> { "Number of words to remove at beginning of line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var lines = input.Split(LineSeparators);
+
+                var param = parameters[0].Length > 0 ? Math.Max(0, Convert.ToInt32(parameters[0])) : 0;
+
+                if (param == 0) return input;
+
+                for (var index = 0; index < lines.Length; ++index)
+                {
+                    var matches = Regex.Matches(lines[index], @"\w+");
+
+                    lines[index] = matches.Count > param ? lines[index].Substring(matches[param].Index) : "";
+                }
+
+                return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
+            }));
+
+            List.Add(new Algorithm("Lines", "Remove words at end", "List of text lines", new List<string> { "Number of words to remove at end of line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var lines = input.Split(LineSeparators);
+
+                var param = parameters[0].Length > 0 ? Math.Max(0, Convert.ToInt32(parameters[0])) : 0;
+
+                if (param == 0) return input;
+
+                for (var index = 0; index < lines.Length; ++index)
+                {
+                    var matches = Regex.Matches(lines[index], @"\w+");
+
+                    lines[index] = matches.Count > param ? lines[index].Substring(0, matches[matches.Count - param].Index - 1) : "";
+                }
+
+                return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
+            }));
+
+            List.Add(new Algorithm("Lines", "Keep words at beginning", "List of text lines", new List<string> { "Number of words to keep at beginning of line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var lines = input.Split(LineSeparators);
+
+                var param = parameters[0].Length > 0 ? Math.Max(0, Convert.ToInt32(parameters[0])) : 0;
+
+                for (var index = 0; index < lines.Length; ++index)
+                {
+                    var matches = Regex.Matches(lines[index], @"\w+");
+
+                    lines[index] = matches.Count > param ? lines[index].Substring(0, matches[param].Index) : lines[index];
+                }
+
+                return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
+            }));
+
+            List.Add(new Algorithm("Lines", "Keep words at end", "List of text lines", new List<string> { "Number of words to keep at end of line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var lines = input.Split(LineSeparators);
+
+                var param = parameters[0].Length > 0 ? Math.Max(0, Convert.ToInt32(parameters[0])) : 0;
+
+                for (var index = 0; index < lines.Length; ++index)
+                {
+                    var matches = Regex.Matches(lines[index], @"\w+");
+
+                    lines[index] = (param == 0)
+                        ? ""
+                        : matches.Count > param ? lines[index].Substring(matches[matches.Count - param].Index) : lines[index];
+                }
+
+                return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
+            }));
+
+            List.Add(new Algorithm("Lines", "Remove empty lines", "List of text lines", (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
 
                 return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
             }));
 
-            List.Add(new Algorithm("List", "Trim", "List of text lines", new List<string> { "Characters to remove on both ends" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            List.Add(new Algorithm("Lines", "Remove extra empty lines", "List of text lines", (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var lines = input.Split(LineSeparators);
+                var result = new List<string>();
+
+                var emptyLine = false;
+
+                foreach (var line in lines)
+                {
+                    if (line.Length > 0)
+                    {
+                        result.Add(line);
+                        
+                        emptyLine = false;
+                    }
+                    else if (!emptyLine)
+                    {
+                        result.Add(line);
+                        emptyLine = true;
+                    }
+                }
+
+                return string.Join("\n", reverseOutputDirection ? result.ToArray().Reverse() : result.ToArray());
+            }));
+
+            List.Add(new Algorithm("Lines", "Trim", "List of text lines", new List<string> { "Characters to remove on both ends" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 var param = parameters[0];
 
@@ -312,7 +440,7 @@
                 return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
             }));
 
-            List.Add(new Algorithm("List", "Trim left", "List of text lines", new List<string> { "Characters to remove at beginning of line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            List.Add(new Algorithm("Lines", "Trim left", "List of text lines", new List<string> { "Characters to remove at beginning of line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 var param = parameters[0];
 
@@ -328,7 +456,7 @@
                 return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
             }));
 
-            List.Add(new Algorithm("List", "Trim right", "List of text lines", new List<string> { "Characters to remove at endof line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            List.Add(new Algorithm("Lines", "Trim right", "List of text lines", new List<string> { "Characters to remove at end of line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 var param = parameters[0];
 
@@ -344,9 +472,25 @@
                 return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
             }));
 
-            List.Add(new Algorithm("List", "Remove duplicates", "List of text lines", (input, parameters, ignoreCase, reverseOutputDirection) =>
+            List.Add(new Algorithm("Lines", "Delete to tag", "List of text lines", new List<string> { "Tag" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var lines = input.Split(LineSeparators, StringSplitOptions.None);
+                var param = parameters[0];
+
+                var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
+
+                for (var index = 0; index < lines.Length; ++index)
+                {
+                    var pos = lines[index].IndexOf(param, ignoreCase ? StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture);
+
+                    lines[index] = pos >= 0 ? lines[index].Substring(pos) : lines[index];
+                }
+
+                return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
+            }));
+
+            List.Add(new Algorithm("Lines", "Remove duplicates", "List of text lines", (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var lines = input.Split(LineSeparators);
                 var result = new List<string>();
                 var hashSet = new HashSet<string>();
 
@@ -400,7 +544,7 @@
                 return regex.Replace(input, "");
             }));
 
-            List.Add(new Algorithm("List", "Filter", "List of text lines", new List<string> { "Filter term" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            List.Add(new Algorithm("Lines", "Filter", "List of text lines", new List<string> { "Filter term" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 var param = parameters[0];
 

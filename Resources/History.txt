@@ -9,7 +9,7 @@ ESC     : clear filter box (when focused)          Ctrl + I : toggle 'ignore cas
                                                    Ctrl + R : toggle 'reverse output'
 === Version history ===
 
-0.11
+0.11 - 11. Feb 2014
 * Renamed category 'List' to 'Lines'
 * Renamed category 'Search' to 'Search & Replace'
 * Added Search & Replace - highlight non-ascii characters

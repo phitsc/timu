@@ -15,9 +15,10 @@
         private TextInfo textInfo = System.Globalization.CultureInfo.CurrentCulture.TextInfo;
         private Random rnd = new Random();
 
-        private static char[] WordSeparators = new char[] { ' ', '\t', '\r', '\n' };
-        private static char[] LineSeparators = new char[] { '\r', '\n' };
-        private static char[] WhitespaceChars = new char[] { ' ', '\t' };
+        private static char[] WordSeparators     = new char[] { ' ', '\t', '\r', '\n' };
+        private static char[] LineSeparators     = new char[] { '\r', '\n' };
+        private static char[] SentenceSeparators = new char[] { '.', '!', '?', '\r', '\n' };
+        private static char[] WhitespaceChars    = new char[] { ' ', '\t' };
 
         public List<Algorithm> List { get; private set; }
 
@@ -63,6 +64,47 @@
             List.Add(new Algorithm("Capitalisation", "Title", "Text to convert to title case", (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 return textInfo.ToTitleCase(input);
+            }));
+
+            List.Add(new Algorithm("Capitalisation", "Sentence", "Text to convert to sentence case", (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var sb = new StringBuilder();
+
+                bool sentenceStart = true;
+
+                foreach (var character in input)
+                {
+                    if (SentenceSeparators.Contains(character))
+                    {
+                        sb.Append(character);
+
+                        sentenceStart = true;
+                    }
+                    else if (!WhitespaceChars.Contains(character) && sentenceStart)
+                    {
+                        sb.Append(textInfo.ToUpper(character));
+
+                        sentenceStart = false;
+                    }
+                    else 
+                    {
+                        sb.Append(textInfo.ToLower(character));
+                    }
+                }
+
+                return sb.ToString();
+            }));
+
+            List.Add(new Algorithm("Capitalisation", "Toggle", "Text to toggle case", (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var sb = new StringBuilder();
+
+                foreach (var character in input)
+                {
+                    sb.Append(char.IsUpper(character) ? textInfo.ToLower(character) : textInfo.ToUpper(character));
+                }
+
+                return sb.ToString();
             }));
 
             List.Add(new Algorithm("Order", "Reverse", "Text to reverse", (input, parameters, ignoreCase, reverseOutputDirection) =>
@@ -159,7 +201,9 @@
 
             List.Add(new Algorithm("Search & Replace", "Simple", "Text to search", new List<string> { "Search term" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                return SearchAndReplace(input, parameters[0], null, ignoreCase);
+                var param = replaceSpecialChars(parameters[0]);
+
+                return SearchAndReplace(input, param, null, ignoreCase);
             }));
 
             List.Add(new Algorithm("Search & Replace", "Replace Simple", "Text to search", 
@@ -170,7 +214,10 @@
                 }, 
                 (input, parameters, ignoreCase, reverseOutputDirection) =>
                 {
-                    return SearchAndReplace(input, parameters[0], parameters[1], ignoreCase);
+                    var param0 = replaceSpecialChars(parameters[0]);
+                    var param1 = replaceSpecialChars(parameters[1]);
+
+                    return SearchAndReplace(input, param0, param1, ignoreCase);
                 })
             );
 
@@ -235,7 +282,7 @@
 
             List.Add(new Algorithm("Lines", "Split", "Text to split", new List<string> { "Comma-separated list of separator strings" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = parameters[0];
+                var param = replaceSpecialChars(parameters[0]);
 
                 var elements = input.Split(param.Split(new char[] { ',' }), StringSplitOptions.None);
 
@@ -244,7 +291,7 @@
 
             List.Add(new Algorithm("Lines", "Join", "List of text lines", new List<string> { "Separator to put between each joined text element" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = parameters[0];
+                var param = replaceSpecialChars(parameters[0]);
 
                 var elements = input.Split(new char[] { '\n' });
 
@@ -253,7 +300,7 @@
 
             List.Add(new Algorithm("Lines", "Append", "List of text lines", new List<string> { "Text to add at each line's end" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = parameters[0];
+                var param = replaceSpecialChars(parameters[0]);
 
                 var lines = input.Split(LineSeparators);
 
@@ -267,7 +314,7 @@
 
             List.Add(new Algorithm("Lines", "Prepend", "List of text lines", new List<string> { "Text to add at each line's beginning" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = parameters[0];
+                var param = replaceSpecialChars(parameters[0]);
 
                 var lines = input.Split(LineSeparators);
 
@@ -288,7 +335,7 @@
                 }, 
                 (input, parameters, ignoreCase, reverseOutputDirection) =>
                 {
-                    var param = parameters[0];
+                    var param = replaceSpecialChars(parameters[0]);
 
                     var lines = input.Split(LineSeparators);
 
@@ -426,7 +473,7 @@
 
             List.Add(new Algorithm("Lines", "Trim", "List of text lines", new List<string> { "Characters to remove on both ends" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = parameters[0];
+                var param = replaceSpecialChars(parameters[0]);
 
                 var trimChars = param.Length > 0 ? param.ToCharArray() : WhitespaceChars;
 
@@ -442,7 +489,7 @@
 
             List.Add(new Algorithm("Lines", "Trim left", "List of text lines", new List<string> { "Characters to remove at beginning of line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = parameters[0];
+                var param = replaceSpecialChars(parameters[0]);
 
                 var trimChars = param.Length > 0 ? param.ToCharArray() : WhitespaceChars;
 
@@ -458,7 +505,7 @@
 
             List.Add(new Algorithm("Lines", "Trim right", "List of text lines", new List<string> { "Characters to remove at end of line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = parameters[0];
+                var param = replaceSpecialChars(parameters[0]);
 
                 var trimChars = param.Length > 0 ? param.ToCharArray() : WhitespaceChars;
 
@@ -474,7 +521,7 @@
 
             List.Add(new Algorithm("Lines", "Delete to tag", "List of text lines", new List<string> { "Tag" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = parameters[0];
+                var param = replaceSpecialChars(parameters[0]);
 
                 var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
 
@@ -714,6 +761,46 @@
             }
 
             sb.Append(input.Substring(from));
+
+            return sb.ToString();
+        }
+
+        private static string replaceSpecialChars(string input)
+        {
+            var sb = new StringBuilder();
+
+            int backslashes = 0;
+
+            foreach (var character in input)
+            {
+                if (character == '\\')
+                {
+                    ++backslashes;
+                }
+                else
+                {
+                    if (backslashes == 0)
+                    {
+                        sb.Append(character);
+                    }
+                    else if (backslashes == 1)
+                    {
+                        switch (character)
+                        {
+                            case 't': sb.Append('\t'); break;
+                            case 'n': sb.Append('\n'); break;
+                            default: sb.Append(character); break;
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(new String('\\', backslashes - 1));
+                        sb.Append(character);
+                    }
+
+                    backslashes = 0;
+                }
+            }
 
             return sb.ToString();
         }

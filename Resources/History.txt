@@ -9,6 +9,9 @@ ESC     : clear filter box (when focused)          Ctrl + I : toggle 'ignore cas
                                                    Ctrl + R : toggle 'reverse output'
 === Version history ===
 
+0.13 -
+* Added Search & Replace - Highlight word multiplication
+
 0.12 - 5. March 2014
 * Added Capitalisation - Title
 * Added Capitalisation - Toggle

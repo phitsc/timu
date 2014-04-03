@@ -247,6 +247,43 @@
                 return sb.ToString();
             }));
 
+            List.Add(new Algorithm("Search & Replace", "Highlight word multiplication", "Text to search for word multiplication", (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var sb = new RtfStringBuilder();
+                var wordSb = new StringBuilder();
+
+                string previousWord = "";
+
+                for (var index = 0; index < input.Length; ++index)
+                {
+                    if (WordSeparators.Contains(input[index]))
+                    {
+                        var word = wordSb.ToString();
+
+                        if (word.Equals(previousWord, ignoreCase ? StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture))
+                        {
+                            sb.AppendHighlighted(word);
+                        }
+                        else
+                        {
+                            sb.Append(word);
+                        }
+
+                        sb.Append(input[index].ToString());
+
+                        previousWord = word;
+
+                        wordSb.Clear();
+                    }
+                    else
+                    {
+                        wordSb.Append(input[index]);
+                    }
+                }
+
+                return sb.ToString();
+            }));
+
             /*
             List.Add(new Algorithm("Search & Replace", "Convert tabs to spaces", "Text to replace tabs with spaces", new List<string> { "Number of spaces for each tab" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {

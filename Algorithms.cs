@@ -19,6 +19,7 @@
         private static char[] LineSeparators     = new char[] { '\r', '\n' };
         private static char[] SentenceSeparators = new char[] { '.', '!', '?', '\r', '\n' };
         private static char[] WhitespaceChars    = new char[] { ' ', '\t' };
+        private static char[] ExtWordSeparators  = new char[] { ' ', '\t', '\r', '\n', '.', ',', '-', ';', ':', '?', '!' };
 
         public List<Algorithm> List { get; private set; }
 
@@ -626,6 +627,57 @@
             {
                 var regex = new Regex(@"<[^>]*>");
                 return regex.Replace(input, "");
+            }));
+
+            List.Add(new Algorithm("Web", "Twitter", "Text to tweet", new List<string> { "Continuation text" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var words = new List<string>();
+
+                {
+                    var word = new StringBuilder();
+
+                    foreach (var character in input)
+                    {
+                        word.Append(character);
+
+                        if (ExtWordSeparators.Contains(character))
+                        {
+                            words.Add(word.ToString());
+
+                            word.Clear();
+                        }
+                    }
+                }
+
+                var param = parameters[0];
+                var maxLength = 140 - param.Length;
+                var sectionLength = 0;
+
+                var output = new StringBuilder();
+
+                foreach (var word in words)
+                {
+                    if (sectionLength + word.Length >= maxLength)
+                    {
+                        if (WordSeparators.Contains(output[output.Length - 1]))
+                        {
+                            output.Remove(output.Length - 1, 1);
+                        }
+                        output.Append(param);
+                        output.Append("\n\n");
+
+                        var trimmedWord = word.TrimStart();
+                        output.Append(trimmedWord);
+                        sectionLength = trimmedWord.Length;
+                    }
+                    else
+                    {
+                        output.Append(word);
+                        sectionLength += word.Length;
+                    }
+                }
+
+                return output.ToString();
             }));
 
             List.Add(new Algorithm("Lines", "Filter", "List of text lines", new List<string> { "Filter term" }, (input, parameters, ignoreCase, reverseOutputDirection) =>

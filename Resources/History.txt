@@ -11,6 +11,7 @@ ESC     : clear filter box (when focused)          Ctrl + I : toggle 'ignore cas
 
 0.13 -
 * Added Search & Replace - Highlight word multiplication
+* Added Web - Twitter
 
 0.12 - 5. March 2014
 * Added Capitalisation - Title

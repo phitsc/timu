@@ -631,29 +631,12 @@
 
             List.Add(new Algorithm("Web", "Twitter", "Text to tweet", new List<string> { "Continuation text" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var words = new List<string>();
-
-                {
-                    var word = new StringBuilder();
-
-                    foreach (var character in input)
-                    {
-                        word.Append(character);
-
-                        if (ExtWordSeparators.Contains(character))
-                        {
-                            words.Add(word.ToString());
-
-                            word.Clear();
-                        }
-                    }
-                }
-
                 var param = parameters[0];
                 var maxLength = 140 - param.Length;
                 var sectionLength = 0;
 
                 var output = new StringBuilder();
+                var words = SplitPreserveToken(input, ExtWordSeparators);
 
                 foreach (var word in words)
                 {
@@ -722,6 +705,28 @@
             output.Append(func(word.ToString()));
 
             return output.ToString();
+        }
+
+
+        private static string[] SplitPreserveToken(string input, char[] tokens)
+        {
+            var words = new List<string>();
+            
+            var word = new StringBuilder();
+
+            foreach (var character in input)
+            {
+                word.Append(character);
+
+                if (tokens.Contains(character))
+                {
+                    words.Add(word.ToString());
+
+                    word.Clear();
+                }
+            }
+
+            return words.ToArray();
         }
 
         private static string Reverse(string input)

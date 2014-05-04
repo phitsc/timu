@@ -202,7 +202,7 @@
 
             List.Add(new Algorithm("Search & Replace", "Simple", "Text to search", new List<string> { "Search term" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = replaceSpecialChars(parameters[0]);
+                var param = ReplaceSpecialChars(parameters[0]);
 
                 return SearchAndReplace(input, param, null, ignoreCase);
             }));
@@ -215,8 +215,8 @@
                 }, 
                 (input, parameters, ignoreCase, reverseOutputDirection) =>
                 {
-                    var param0 = replaceSpecialChars(parameters[0]);
-                    var param1 = replaceSpecialChars(parameters[1]);
+                    var param0 = ReplaceSpecialChars(parameters[0]);
+                    var param1 = ReplaceSpecialChars(parameters[1]);
 
                     return SearchAndReplace(input, param0, param1, ignoreCase);
                 })
@@ -320,7 +320,7 @@
 
             List.Add(new Algorithm("Lines", "Split", "Text to split", new List<string> { "Comma-separated list of separator strings" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = replaceSpecialChars(parameters[0]);
+                var param = ReplaceSpecialChars(parameters[0]);
 
                 var elements = input.Split(param.Split(new char[] { ',' }), StringSplitOptions.None);
 
@@ -329,7 +329,7 @@
 
             List.Add(new Algorithm("Lines", "Join", "List of text lines", new List<string> { "Separator to put between each joined text element" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = replaceSpecialChars(parameters[0]);
+                var param = ReplaceSpecialChars(parameters[0]);
 
                 var elements = input.Split(new char[] { '\n' });
 
@@ -338,7 +338,7 @@
 
             List.Add(new Algorithm("Lines", "Append", "List of text lines", new List<string> { "Text to add at each line's end" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = replaceSpecialChars(parameters[0]);
+                var param = ReplaceSpecialChars(parameters[0]);
 
                 var lines = input.Split(LineSeparators);
 
@@ -352,7 +352,7 @@
 
             List.Add(new Algorithm("Lines", "Prepend", "List of text lines", new List<string> { "Text to add at each line's beginning" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = replaceSpecialChars(parameters[0]);
+                var param = ReplaceSpecialChars(parameters[0]);
 
                 var lines = input.Split(LineSeparators);
 
@@ -373,7 +373,7 @@
                 }, 
                 (input, parameters, ignoreCase, reverseOutputDirection) =>
                 {
-                    var param = replaceSpecialChars(parameters[0]);
+                    var param = ReplaceSpecialChars(parameters[0]);
 
                     var lines = input.Split(LineSeparators);
 
@@ -511,7 +511,7 @@
 
             List.Add(new Algorithm("Lines", "Trim", "List of text lines", new List<string> { "Characters to remove on both ends" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = replaceSpecialChars(parameters[0]);
+                var param = ReplaceSpecialChars(parameters[0]);
 
                 var trimChars = param.Length > 0 ? param.ToCharArray() : WhitespaceChars;
 
@@ -527,7 +527,7 @@
 
             List.Add(new Algorithm("Lines", "Trim left", "List of text lines", new List<string> { "Characters to remove at beginning of line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = replaceSpecialChars(parameters[0]);
+                var param = ReplaceSpecialChars(parameters[0]);
 
                 var trimChars = param.Length > 0 ? param.ToCharArray() : WhitespaceChars;
 
@@ -543,7 +543,7 @@
 
             List.Add(new Algorithm("Lines", "Trim right", "List of text lines", new List<string> { "Characters to remove at end of line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = replaceSpecialChars(parameters[0]);
+                var param = ReplaceSpecialChars(parameters[0]);
 
                 var trimChars = param.Length > 0 ? param.ToCharArray() : WhitespaceChars;
 
@@ -559,7 +559,7 @@
 
             List.Add(new Algorithm("Lines", "Delete to tag", "List of text lines", new List<string> { "Tag" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
-                var param = replaceSpecialChars(parameters[0]);
+                var param = ReplaceSpecialChars(parameters[0]);
 
                 var lines = input.Split(LineSeparators, StringSplitOptions.RemoveEmptyEntries);
 
@@ -854,7 +854,7 @@
             return sb.ToString();
         }
 
-        private static string replaceSpecialChars(string input)
+        private static string ReplaceSpecialChars(string input)
         {
             var sb = new StringBuilder();
 

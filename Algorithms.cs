@@ -633,14 +633,14 @@
             {
                 var param = parameters[0];
                 var maxLength = 140 - param.Length;
-                var sectionLength = 0;
 
+                var sectionLength = 0;
                 var output = new StringBuilder();
                 var words = SplitPreserveToken(input, ExtWordSeparators);
 
                 foreach (var word in words)
                 {
-                    if (sectionLength + word.Length >= maxLength)
+                    if (sectionLength + word.Length > maxLength)
                     {
                         if (WordSeparators.Contains(output[output.Length - 1]))
                         {
@@ -661,6 +661,41 @@
                 }
 
                 return output.ToString();
+            }));
+
+            List.Add(new Algorithm("Lines", "Trim to size", "List of text lines", new List<string>() { "Max. line length", "Text to prepend", "Text to append" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var maxLineLength = parameters[0].Length > 0 ? Math.Max(0, Convert.ToInt32(parameters[0])) : 0;
+                var prependText = parameters[1];
+                var appendText = parameters[2];
+                var maxLength = maxLineLength - prependText.Length - appendText.Length;
+
+                var result = new List<string>();
+
+                var sectionLength = 0;
+                var section = new StringBuilder();
+
+                foreach (var word in SplitPreserveToken(input, ExtWordSeparators))
+                {
+                    if (sectionLength + word.Length > maxLength)
+                    {
+                        result.Add(section.ToString());
+                        sectionLength = 0;
+                        section.Clear();
+                    }
+
+                    section.Append(word);
+                    sectionLength += word.Length;
+                }
+
+                result.Add(section.ToString());
+
+                for (var index = 0; index < result.Count; ++index)
+                {
+                    result[index] = prependText + result[index].Trim() + appendText;
+                }
+
+                return string.Join("\n", reverseOutputDirection ? result.ToArray().Reverse() : result.ToArray());
             }));
 
             List.Add(new Algorithm("Lines", "Filter", "List of text lines", new List<string> { "Filter term" }, (input, parameters, ignoreCase, reverseOutputDirection) =>

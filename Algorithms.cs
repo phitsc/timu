@@ -640,7 +640,7 @@
 
                 foreach (var word in words)
                 {
-                    if (sectionLength + word.Length > maxLength)
+                    if (sectionLength + word.TrimEnd().Length > maxLength)
                     {
                         if (WordSeparators.Contains(output[output.Length - 1]))
                         {
@@ -677,7 +677,7 @@
 
                 foreach (var word in SplitPreserveToken(input, ExtWordSeparators))
                 {
-                    if (sectionLength + word.Length > maxLength)
+                    if (sectionLength + word.TrimEnd().Length > maxLength)
                     {
                         result.Add(section.ToString());
                         sectionLength = 0;
@@ -760,6 +760,8 @@
                     word.Clear();
                 }
             }
+
+            words.Add(word.ToString());
 
             return words.ToArray();
         }

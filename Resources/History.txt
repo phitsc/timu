@@ -9,6 +9,9 @@ ESC     : clear filter box (when focused)          Ctrl + I : toggle 'ignore cas
                                                    Ctrl + R : toggle 'reverse output'
 === Version history ===
 
+0.14 - 6. May 2014
+* Fixed last word and space after word problem with Web - Twitter and List - Trim to size
+
 0.13 - 4. May 2014
 * Added Search & Replace - Highlight word multiplication
 * Added Web - Twitter

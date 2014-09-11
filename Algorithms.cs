@@ -243,7 +243,7 @@
             {
                 var sb = new RtfStringBuilder();
 
-                sb.Append(Regex.Replace(input, @"([^\u0000-\u007F])", "{{\\highlight2 $1}}", ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None));
+                sb.Append(Regex.Replace(input, @"([^\u0000-\u007F])", "{{\\highlight2 $1}}", RegexOptions.Multiline | (ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None)));
 
                 return sb.ToString();
             }));
@@ -373,13 +373,6 @@
                 }, 
                 (input, parameters, ignoreCase, reverseOutputDirection) =>
                 {
-                    var param = ReplaceSpecialChars(parameters[0]);
-
-                    var lines = input.Split(LineSeparators);
-
-                    var match = Regex.Match(param, "[#]+");
-                    var lineNumberFormat = match.Success ? ("d" + match.Value.Length.ToString()) : "";
-                    
                     var start = 1;
                     int suppliedStart;
                     if (int.TryParse(parameters[1], out suppliedStart))
@@ -393,6 +386,12 @@
                     {
                         increment = suppliedIncrement;
                     }
+
+                    var lines = input.Split(LineSeparators);
+
+                    var param = ReplaceSpecialChars(parameters[0]);
+                    var match = Regex.Match(param, "[#]+");
+                    var lineNumberFormat = match.Success ? ("d" + match.Value.Length.ToString()) : "";
 
                     var lineNumber = start;
                     for (var index = 0; index < lines.Length; ++index)
@@ -591,6 +590,51 @@
                 return string.Join("\n", reverseOutputDirection ? result.ToArray().Reverse() : result.ToArray());
             }));
 
+            List.Add(new Algorithm("Lines", "Remove duplicates & count unique", "List of text lines", new List<string> { "Count prepend format string (use # for count)", "Count append format string (use # for count)" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            {
+                var lines = input.Split(LineSeparators);
+                var result = new List<string>();
+                var dict = new Dictionary<string, int>();
+
+                for (var index = 0; index < lines.Length; ++index)
+                {
+                    var line = ignoreCase ? lines[index].ToLower() : lines[index];
+
+                    int val;
+                    if (dict.TryGetValue(line, out val))
+                    {
+                        dict[line] = val + 1;
+                    }
+                    else
+                    {
+                        result.Add(lines[index]);
+                        dict.Add(line, 1);
+                    }
+                }
+
+                var param0 = ReplaceSpecialChars(parameters[0]);
+                var match0 = Regex.Match(param0, "[#]+");
+                var prependCountFormat = match0.Success ? ("d" + match0.Value.Length.ToString()) : "";
+
+                var param1 = ReplaceSpecialChars(parameters[1]);
+                var match1 = Regex.Match(param1, "[#]+");
+                var appendCountFormat = match1.Success ? ("d" + match1.Value.Length.ToString()) : "";
+
+                var result_ = new List<string>();
+
+                foreach(var line in result)
+                {
+                    var line_ = ignoreCase ? line.ToLower() : line;
+
+                    var prependText = prependCountFormat.Length > 0 ? param0.Replace(match0.Value, dict[line_].ToString(prependCountFormat)) : param0;
+                    var appendText = appendCountFormat.Length > 0 ? param1.Replace(match1.Value, dict[line_].ToString(appendCountFormat)) : param1;
+
+                    result_.Add(prependText + line + appendText);
+                }
+
+                return string.Join("\n", reverseOutputDirection ? result_.ToArray().Reverse() : result_.ToArray());
+            }));
+
             List.Add(new Algorithm("Encryption", "Encrypt", "Text to encrypt", new List<string> { "Password" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 var param = parameters[0];
@@ -707,7 +751,7 @@
                 var elements = input.Split(new char[] { '\n' });
                 var query = from line in elements where (CultureInfo.CurrentCulture.CompareInfo.IndexOf(line, param, ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None) >= 0) select line;
 
-                var regex = new Regex(param, ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None);
+                var regex = new Regex(param, RegexOptions.Multiline | (ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None));
                 var rtf = regex.Replace(string.Join("\n", reverseOutputDirection ? query.Reverse() : query), string.Format("{{\\highlight2 {0}}}", param));
                 
                 var sb = new RtfStringBuilder();
@@ -870,7 +914,7 @@
 
         private static string SearchAndReplaceRegex(string input, string searchTerm, string replacementText, bool ignoreCase)
         {
-            var matches = Regex.Matches(input, searchTerm, ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None);
+            var matches = Regex.Matches(input, searchTerm, RegexOptions.Multiline | (ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None));
 
             var sb = new RtfStringBuilder();
 

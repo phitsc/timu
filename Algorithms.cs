@@ -87,7 +87,7 @@
 
                         sentenceStart = false;
                     }
-                    else 
+                    else
                     {
                         sb.Append(textInfo.ToLower(character));
                     }
@@ -207,12 +207,12 @@
                 return SearchAndReplace(input, param, null, ignoreCase);
             }));
 
-            List.Add(new Algorithm("Search & Replace", "Replace Simple", "Text to search", 
-                new List<string> 
-                { 
+            List.Add(new Algorithm("Search & Replace", "Replace Simple", "Text to search",
+                new List<string>
+                {
                     "Search term",
                     "Replacement text"
-                }, 
+                },
                 (input, parameters, ignoreCase, reverseOutputDirection) =>
                 {
                     var param0 = ReplaceSpecialChars(parameters[0]);
@@ -227,9 +227,9 @@
                 return SearchAndReplaceRegex(input, parameters[0], null, ignoreCase);
             }));
 
-            List.Add(new Algorithm("Search & Replace", "Replace Regex", "Text to search", 
-                new List<string> 
-                { 
+            List.Add(new Algorithm("Search & Replace", "Replace Regex", "Text to search",
+                new List<string>
+                {
                     "Search regular expression",
                     "Replacement text"
                 },
@@ -318,11 +318,20 @@
             }));
             */
 
-            List.Add(new Algorithm("Lines", "Split", "Text to split", new List<string> { "Comma-separated list of separator strings" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
+            List.Add(new Algorithm("Lines", "Split", "Text to split", new List<string> { "Comma-separated list of separator strings (add ,, to split by comma)" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {
                 var param = ReplaceSpecialChars(parameters[0]);
+                var separatorStrings = new List<string>();
 
-                var elements = input.Split(param.Split(new char[] { ',' }), StringSplitOptions.None);
+                if (param.Contains(",,"))
+                {
+                    separatorStrings.Add(",");
+                    param.Replace(",,", ",");
+                }
+
+                separatorStrings.AddRange(param.Split(new char[] { ',' }));
+
+                var elements = input.Split(separatorStrings.ToArray(), StringSplitOptions.None);
 
                 return string.Join("\n", reverseOutputDirection ? elements.Reverse() : elements);
             }));
@@ -364,13 +373,13 @@
                 return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
             }));
 
-            List.Add(new Algorithm("Lines", "Prepend line number", "List of text lines", 
-                new List<string> 
-                { 
+            List.Add(new Algorithm("Lines", "Prepend line number", "List of text lines",
+                new List<string>
+                {
                     "Line number format string (use # for line number)" ,
                     "Start line number",
                     "Increment"
-                }, 
+                },
                 (input, parameters, ignoreCase, reverseOutputDirection) =>
                 {
                     var start = 1;
@@ -495,7 +504,7 @@
                     if (line.Length > 0)
                     {
                         result.Add(line);
-                        
+
                         emptyLine = false;
                     }
                     else if (!emptyLine)
@@ -753,7 +762,7 @@
 
                 var regex = new Regex(param, RegexOptions.Multiline | (ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None));
                 var rtf = regex.Replace(string.Join("\n", reverseOutputDirection ? query.Reverse() : query), string.Format("{{\\highlight2 {0}}}", param));
-                
+
                 var sb = new RtfStringBuilder();
                 sb.Append(rtf);
 
@@ -790,7 +799,7 @@
         private static string[] SplitPreserveToken(string input, char[] tokens)
         {
             var words = new List<string>();
-            
+
             var word = new StringBuilder();
 
             foreach (var character in input)
@@ -812,7 +821,7 @@
 
         private static string Reverse(string input)
         {
-            if (string.IsNullOrEmpty(input) || input.Length == 1) 
+            if (string.IsNullOrEmpty(input) || input.Length == 1)
             {
                 return input;
             }
@@ -899,7 +908,7 @@
                 {
                     sb.AppendHighlighted(replacementText);
                 }
-                else 
+                else
                 {
                     sb.AppendHighlighted(input.Substring(finds[index], searchTerm.Length));
                 }

@@ -9,6 +9,9 @@ ESC     : clear filter box (when focused)          Ctrl + I : toggle 'ignore cas
                                                    Ctrl + R : toggle 'reverse output'
 === Version history ===
 
+0.17 - 16. June 2015
+* Lines - Split - Add possibility to split by comma
+
 0.16 - 10. September 2014
 * Added Lines - Remove duplicates & count unique
 

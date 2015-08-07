@@ -7,7 +7,26 @@ Alt + O : focus output box                         Ctrl + S : save file
 Alt + D : focus filter box                         Ctrl + Q : quit application
 ESC     : clear filter box (when focused)          Ctrl + I : toggle 'ignore case'
                                                    Ctrl + R : toggle 'reverse output'
+=== Escape characters ===
+
+\\t : Tab
+\\n : Newline
+
+=== Command Line Arguments ===
+
+-f <name>         or --function <name>           : Name of initially selected function
+-i <path_to_file> or --input-file <path_to_file> : Path to text file to load into input field
+-p <value>        or --param <value>             : Parameter value for function in order specified
+                                                   (provide as many as necessary)
+
+Put <value> in quotes if it contains spaces. Leftover text will be uses as input. If no input is
+provided the input field will be populated with what's in the clipboard.
+
 === Version history ===
+
+0.18 -
+* Specify escape characters in help
+* Add command line arguments (see above)
 
 0.17 - 16. June 2015
 * Lines - Split - Add possibility to split by comma

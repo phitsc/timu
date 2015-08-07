@@ -415,41 +415,78 @@
                 })
             );
 
-            List.Add(new Algorithm("Lines", "Remove words at beginning", "List of text lines", new List<string> { "Number of words to remove at beginning of line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
-            {
-                var lines = input.Split(LineSeparators);
-
-                var param = parameters[0].Length > 0 ? Math.Max(0, Convert.ToInt32(parameters[0])) : 0;
-
-                if (param == 0) return input;
-
-                for (var index = 0; index < lines.Length; ++index)
+            List.Add(new Algorithm("Lines", "Remove characters", "List of text lines",
+                new List<string>
                 {
-                    var matches = Regex.Matches(lines[index], @"\w+");
-
-                    lines[index] = matches.Count > param ? lines[index].Substring(matches[param].Index) : "";
-                }
-
-                return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
-            }));
-
-            List.Add(new Algorithm("Lines", "Remove words at end", "List of text lines", new List<string> { "Number of words to remove at end of line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
-            {
-                var lines = input.Split(LineSeparators);
-
-                var param = parameters[0].Length > 0 ? Math.Max(0, Convert.ToInt32(parameters[0])) : 0;
-
-                if (param == 0) return input;
-
-                for (var index = 0; index < lines.Length; ++index)
+                    "Number of characters to remove at beginning of line",
+                    "Number of characters to remove at end of line"
+                },
+                (input, parameters, ignoreCase, reverseOutputDirection) =>
                 {
-                    var matches = Regex.Matches(lines[index], @"\w+");
+                    var lines = input.Split(LineSeparators);
 
-                    lines[index] = matches.Count > param ? lines[index].Substring(0, matches[matches.Count - param].Index - 1) : "";
+                    var paramLeft = parameters[0].Length > 0 ? Math.Max(0, Convert.ToInt32(parameters[0])) : 0;
+                    var paramRight = parameters[1].Length > 0 ? Math.Max(0, Convert.ToInt32(parameters[1])) : 0;
+
+                    if (paramLeft == 0 && paramRight == 0) return input;
+
+                    for (var index = 0; index < lines.Length; ++index)
+                    {
+                        var temp = paramLeft < lines[index].Length ? lines[index].Substring(paramLeft) : "";
+                        lines[index] = paramRight < temp.Length ? temp.Substring(0, temp.Length - paramRight) : "";
+                    }
+
+                    return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
                 }
+            ));
 
-                return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
-            }));
+            List.Add(new Algorithm("Lines", "Remove words", "List of text lines",
+                new List<string>
+                {
+                    "Number of words to remove at beginning of line",
+                    "Number of words to remove at end of line"
+                },
+                (input, parameters, ignoreCase, reverseOutputDirection) =>
+                {
+                    var lines = input.Split(LineSeparators);
+
+                    var paramLeft = parameters[0].Length > 0 ? Math.Max(0, Convert.ToInt32(parameters[0])) : 0;
+                    var paramRight = parameters[1].Length > 0 ? Math.Max(0, Convert.ToInt32(parameters[1])) : 0;
+
+                    if (paramLeft == 0 && paramRight == 0) return input;
+
+                    for (var index = 0; index < lines.Length; ++index)
+                    {
+                        var matches = Regex.Matches(lines[index], @"\w+");
+
+                        if (matches.Count < (paramLeft + paramRight))
+                        {
+                            lines[index] = "";
+                        }
+                        else
+                        {
+                            var temp = paramLeft < matches.Count ? lines[index].Substring(matches[paramLeft].Index) : "";
+
+                            var remainingMatches = Regex.Matches(temp, @"\w+");
+
+                            if (paramRight <= 0 || remainingMatches.Count == 0)
+                            {
+                                lines[index] = temp;
+                            }
+                            else if (remainingMatches[remainingMatches.Count - paramRight].Index < 1)
+                            {
+                                lines[index] = "";
+                            }
+                            else
+                            {
+                                lines[index] = paramRight > 0 ? temp.Substring(0, remainingMatches[remainingMatches.Count - paramRight].Index - 1) : temp;
+                            }
+                        }
+                    }
+
+                    return string.Join("\n", reverseOutputDirection ? lines.Reverse() : lines);
+                }
+            ));
 
             List.Add(new Algorithm("Lines", "Keep words at beginning", "List of text lines", new List<string> { "Number of words to keep at beginning of line" }, (input, parameters, ignoreCase, reverseOutputDirection) =>
             {

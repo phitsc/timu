@@ -17,8 +17,9 @@
         private bool ignoreCase = false;
         private bool reverseOutputDirection = false;
         private int highlights = 0;
+        private CommandLineArguments commandLineOptions;
 
-        public MainForm()
+        public MainForm(string[] args)
         {
             InitializeComponent();
 
@@ -31,7 +32,43 @@
 
             UpdateAlgorithmsTreeView();
 
-            this.algorithmsTreeView.SelectedNode = this.algorithmsTreeView.Nodes[0];
+            commandLineOptions = new CommandLineArguments(args);
+
+            var node = GetInitialNode();
+
+            this.algorithmsTreeView.SelectedNode = (node != null) ? node : this.algorithmsTreeView.Nodes[0];
+        }
+
+        private TreeNode GetInitialNode()
+        {
+            var initialFunction = commandLineOptions["function"];
+
+            if (initialFunction.Count > 0)
+            {
+                var nodes = this.algorithmsTreeView.Nodes.Find("Alg_" + initialFunction[0], true);
+
+                return nodes.Length > 0 ? nodes[0] : null;
+            }
+
+            return null;
+        }
+
+        private List<string> GetInitialParameters(string[] args)
+        {
+            var parameters = new List<string>();
+
+            for (var index = 0; index < args.Length; ++index)
+            {
+                if (args[index] == "-p")
+                {
+                    if ((index + 1) < args.Length)
+                    {
+                        parameters.Add(args[index + 1]);
+                    }
+                }
+            }
+
+            return parameters;
         }
 
         private void UpdateAlgorithmsTreeView()
@@ -45,7 +82,7 @@
                     var nodes = this.algorithmsTreeView.Nodes.Find(algorithm.Group, false);
                     var groupNode = nodes.Length == 0 ? this.algorithmsTreeView.Nodes.Add(algorithm.Group, algorithm.Group) : nodes[0];
 
-                    var node = (algorithm.Group == algorithm.Name) ? groupNode : groupNode.Nodes.Add(algorithm.Name);
+                    var node = (algorithm.Group == algorithm.Name) ? groupNode : groupNode.Nodes.Add("Alg_" + algorithm.Name, algorithm.Name);
 
                     node.Tag = algorithm;
                 }
@@ -86,8 +123,40 @@
                 this.Size = Properties.Settings.Default.MainFormSize;
             }
 
-            this.inputTextBox.Text = Clipboard.GetText();
+            var input = commandLineOptions["input"];
+
+            if (commandLineOptions.ErrorMessage.Length > 0)
+            {
+                this.inputTextBox.Text = "ERROR : Invalid Command Line Argument\n" + commandLineOptions.ErrorMessage;
+            }
+            else if (input.Count > 0)
+            {
+                this.inputTextBox.Text = string.Join(" ", input);
+            }
+            else
+            {
+                var inputFile = commandLineOptions["input-file"];
+
+                if (inputFile.Count > 0)
+                {
+                    try
+                    {
+                        this.inputTextBox.Text = File.ReadAllText(inputFile[0]);
+                    }
+                    catch (Exception error)
+                    {
+                        this.inputTextBox.Text = "ERROR : Invalid Command Line Argument\n" + error.Message;
+                    }
+                }
+                else
+                {
+                    this.inputTextBox.Text = Clipboard.GetText();
+                }
+            }
+
             this.inputTextBox.Select();
+
+            InitInitialParameters();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -139,6 +208,20 @@
             }
 
             this.UpdateOutput();
+        }
+
+        private void InitInitialParameters()
+        {
+            var initialParameters = commandLineOptions["param"];
+
+            var index = 0;
+
+            while (index < initialParameters.Count && index < this.parametersTableLayoutPanel.ColumnCount)
+            {
+                this.parametersTableLayoutPanel.GetControlFromPosition(index, 1).Text = initialParameters[index];
+
+                ++index;
+            }
         }
 
         private void paramTextBox_TextChanged(object sender, EventArgs e)
@@ -279,7 +362,7 @@
         {
             Process.Start(e.LinkText);
         }
- 
+
         private void UpdateIgnoreCaseButton()
         {
             this.ignoreCaseButton.Image = this.ignoreCase ? Properties.Resources.ignore_case_on : Properties.Resources.ignore_case_off;

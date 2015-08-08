@@ -24,9 +24,11 @@ provided the input field will be populated with what's in the clipboard.
 
 === Version history ===
 
-0.18 -
+0.18 - 8. August 2015
 * Specify escape characters in help
 * Add command line arguments (see above)
+* Combine Remove words left/right into Remove words
+* Add Remove characters
 
 0.17 - 16. June 2015
 * Lines - Split - Add possibility to split by comma

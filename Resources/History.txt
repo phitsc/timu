@@ -24,6 +24,9 @@ provided the input field will be populated with what's in the clipboard.
 
 === Version history ===
 
+0.19 - 18. November 2015
+* Support capture group references in replacement text for Regex Search & Replace (use \1, \2, etc.)
+
 0.18 - 8. August 2015
 * Specify escape characters in help
 * Add command line arguments (see above)

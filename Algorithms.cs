@@ -971,7 +971,14 @@
 
                 if (replacementText != null)
                 {
-                    sb.AppendHighlighted(replacementText);
+                    var substReplacementText = replacementText;
+
+                    for (int groupIndex = 1; groupIndex < match.Groups.Count; ++groupIndex)
+                    {
+                        substReplacementText = substReplacementText.Replace('\\' + groupIndex.ToString(), match.Groups[groupIndex].Value);
+                    }
+
+                    sb.AppendHighlighted(substReplacementText);
                 }
                 else
                 {

@@ -112,7 +112,10 @@
         private void MainForm_Load(object sender, EventArgs e)
         {
             var storedLocation = Properties.Settings.Default.MainFormLocation;
-            if (storedLocation != null && (storedLocation.X != -1 && storedLocation.Y != -1))
+            if (storedLocation != null && 
+                (storedLocation.X >= SystemInformation.VirtualScreen.X && storedLocation.X < (SystemInformation.VirtualScreen.X + SystemInformation.VirtualScreen.Width)) &&
+                (storedLocation.Y >= SystemInformation.VirtualScreen.Y && storedLocation.Y < (SystemInformation.VirtualScreen.Y + SystemInformation.VirtualScreen.Height))
+               )
             {
                 this.Location = Properties.Settings.Default.MainFormLocation;
             }

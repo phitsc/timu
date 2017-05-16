@@ -24,6 +24,9 @@ provided the input field will be populated with what's in the clipboard.
 
 === Version history ===
 
+0.20 - 16. May 2017
+* Fixed window not showing when starting the application after it has been closed while minimized
+
 0.19 - 18. November 2015
 * Support capture group references in replacement text for Regex Search & Replace (use \1, \2, etc.)
 

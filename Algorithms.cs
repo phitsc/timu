@@ -35,7 +35,7 @@
 
                 sb.AppendBold(string.Format("Text Inspection & Manipulation Utility vers. {0}", assembly.GetName().Version));
                 sb.Append("\n\n");
-                sb.Append(global::TextManipulationUtility.Properties.Resources.History);
+                sb.Append(global::TextManipulationUtility.Properties.Resources.Readme);
 
                 return sb.ToString();
             }));

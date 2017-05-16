@@ -90,9 +90,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\History.txt" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="README.md" />
     <None Include="Resources\editpaste.png" />
   </ItemGroup>
   <ItemGroup>
